@@ -115,15 +115,70 @@
       Carregando...
     </h1>
 
-    <!-- Discord no topo, sem seguir a rolagem -->
+    <!-- Discord no topo -->
     <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
       <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
     </a>
   </header>
 
-  <!-- Container onde os pokémons serão carregados -->
   <div class="container" id="pokemonContainer"></div>
 
-  <script src="js/render.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("pokemonContainer");
+      const title = document.querySelector("header h1");
+
+      if (!container || !title) {
+        console.error("Elementos HTML não encontrados");
+        return;
+      }
+
+      // Pega o arquivo JSON a partir da URL
+      const params = new URLSearchParams(window.location.search);
+      let file = params.get("file");
+
+      if (!file || (file !== "allowlist_Monomon.json" && file !== "allowlist_Starters.json")) {
+        title.textContent = "Erro: Arquivo não encontrado";
+        container.innerHTML = "<p>Use ?file=allowlist_Monomon.json ou ?file=allowlist_Starters.json</p>";
+        return;
+      }
+
+      fetch(file)
+        .then(res => {
+          if (!res.ok) throw new Error("Não foi possível carregar o JSON");
+          return res.json();
+        })
+        .then(data => {
+          title.textContent = file.includes("Monomon") ? "Monomon" : "Starters";
+
+          if (!Array.isArray(data) || data.length === 0) {
+            container.innerHTML = "<p>Nenhum Pokémon encontrado nessa tier.</p>";
+            return;
+          }
+
+          data.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            // Imagem padrão se não houver
+            const imgSrc = p.image ? p.image : (file.includes("Monomon") ? "img/Monomon.png" : "img/Starters.png");
+
+            card.innerHTML = `
+              <img src="${imgSrc}" alt="${p.name}">
+              <div class="card-text">
+                <h2>${p.name}</h2>
+                <p>ID: ${p.id}</p>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          title.textContent = "Erro ao carregar os dados";
+          container.innerHTML = "<p>Verifique se o arquivo JSON existe e o caminho está correto.</p>";
+        });
+    });
+  </script>
 </body>
 </html>
