@@ -163,6 +163,10 @@
     "id": 35,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png"
   },
+  "clefable": {
+    "id": 36,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/36.png"
+  },
   "vulpix-alola": {
     "id": 10103,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10103.png"
@@ -3558,5 +3562,57 @@
   "calyrex": {
     "id": 898,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/898.png"
+  },
+  "charizard-mega-x": {
+    "id": 10034,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10034.png"
+  },
+  "charizard-mega-y": {
+    "id": 10035,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10035.png"
+  },
+  "blaziken": {
+    "id": 257,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/257.png"
+  },
+  "swampert-mega": {
+    "id": 10064,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10064.png"
+  },
+  "gardevoir-mega": {
+    "id": 10051,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10051.png"
+  },
+  "mawile-mega": {
+    "id": 10052,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10052.png"
+  },
+  "sableye-mega": {
+    "id": 10066,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10066.png"
+  },
+  "medicham-mega": {
+    "id": 10054,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10054.png"
+  },
+  "lopunny-mega": {
+    "id": 10088,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10088.png"
+  },
+  "garchomp-mega": {
+    "id": 10058,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10058.png"
+  },
+  "gallade-mega": {
+    "id": 10068,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10068.png"
+  },
+  "oricorio-baile": {
+    "id": 741,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/741.png"
+  },
+  "dragapult": {
+    "id": 887,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/887.png"
   }
 }
