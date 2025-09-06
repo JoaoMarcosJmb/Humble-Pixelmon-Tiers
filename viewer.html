@@ -123,20 +123,52 @@
     function normalizeName(key) {
       let name = key.toLowerCase().replace(/\s+/g, '-');
 
-      // regras específicas
-      const removeSuffixes = [
-        "-mega", "-origin", "-therian", "-resolute", "-pirouette", "-eternal",
-        "-blade", "-base", "-average", "-school", "-dusk", "-dawn", "-midnight",
-        "-hisui", "-alola", "-galar", "-paldea",
-        "-bug", "-dark", "-dragon", "-electric", "-fairy", "-fighting",
-        "-fire", "-flying", "-ghost", "-grass", "-ground", "-ice",
-        "-poison", "-psychic", "-rock", "-steel", "-water" // arceus formas
+      // Formas que o Smogon TEM páginas próprias e devem ser mantidas
+      const keepForms = [
+        "lycanroc-dusk", "lycanroc-midnight",
+        "landorus-therian", "thundurus-therian", "tornadus-therian",
+        "urshifu-rapid-strike", "urshifu-single-strike"
       ];
+      if (keepForms.includes(name)) {
+        return name;
+      }
 
+      // Formas regionais -> mantém (ex: ninetales-alola)
+      if (name.includes("-alola") || name.includes("-galar") || name.includes("-hisui") || name.includes("-paldea")) {
+        return name;
+      }
+
+      // Oricorio -> sempre cai em oricorio (independente da dança)
+      if (name.startsWith("oricorio")) {
+        return "oricorio";
+      }
+
+      // Arceus -> todas as variantes viram arceus
+      if (name.startsWith("arceus-")) {
+        return "arceus";
+      }
+
+      // Giratina-Origin -> vira giratina
+      if (name === "giratina-origin") {
+        return "giratina";
+      }
+
+      // Megas -> removemos o sufixo
+      if (name.endsWith("-mega")) {
+        return name.replace("-mega", "");
+      }
+
+      // Outras formas descartáveis
+      const removeSuffixes = [
+        "-origin", "-therian", "-resolute", "-pirouette", "-eternal",
+        "-blade", "-base", "-average", "-school", "-dusk", "-dawn", "-midday",
+        "-ice", "-fire", "-water", "-grass", "-rock", "-fighting", "-flying",
+        "-ghost", "-dark", "-fairy", "-dragon", "-bug", "-ground", "-poison",
+        "-psychic", "-steel", "-electric", "-normal"
+      ];
       for (const suf of removeSuffixes) {
         if (name.endsWith(suf)) {
-          name = name.replace(suf, "");
-          break;
+          return name.replace(suf, "");
         }
       }
 
