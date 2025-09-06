@@ -61,23 +61,24 @@
     }
 
     .card {
-      background: white;
+      background: #80560E;
       border-radius: 16px;
       padding: 20px 15px;
       text-align: left;
       box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
       display: flex;
       align-items: center;
       gap: 15px;
       cursor: pointer;
       text-decoration: none;
-      color: #333;
+      color: #fff;
     }
 
     .card:hover {
       transform: translateY(-8px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+      background: #a27114; /* ligeiramente mais claro no hover */
     }
 
     .card img {
@@ -95,13 +96,13 @@
     .card-text h2 {
       margin: 0 0 5px 0;
       font-size: 1.4rem;
-      color: #444;
+      color: #fff;
     }
 
     .card-text p {
       margin: 0;
       font-size: 0.95rem;
-      color: #666;
+      color: #fff;
     }
   </style>
 </head>
