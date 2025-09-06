@@ -119,6 +119,30 @@
         .join(' ');
     }
 
+    // Função que normaliza o nome para o link do Smogon
+    function normalizeName(key) {
+      let name = key.toLowerCase().replace(/\s+/g, '-');
+
+      // regras específicas
+      const removeSuffixes = [
+        "-mega", "-origin", "-therian", "-resolute", "-pirouette", "-eternal",
+        "-blade", "-base", "-average", "-school", "-dusk", "-dawn", "-midnight",
+        "-hisui", "-alola", "-galar", "-paldea",
+        "-bug", "-dark", "-dragon", "-electric", "-fairy", "-fighting",
+        "-fire", "-flying", "-ghost", "-grass", "-ground", "-ice",
+        "-poison", "-psychic", "-rock", "-steel", "-water" // arceus formas
+      ];
+
+      for (const suf of removeSuffixes) {
+        if (name.endsWith(suf)) {
+          name = name.replace(suf, "");
+          break;
+        }
+      }
+
+      return name;
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('pokemonContainer');
       const header = document.querySelector('header h1');
@@ -148,11 +172,17 @@
 
         entries.forEach(([key, info]) => {
           const namePretty = prettifyKey(key);
+          const smogonName = normalizeName(key);
+          const smogonUrl = `https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
+
           const localImgPath = `img/${encodeURIComponent(key)}.png`; 
           const fallbackRemote = info && info.sprite ? info.sprite : '';
 
-          const card = document.createElement('div');
+          const card = document.createElement('a');
           card.className = 'card';
+          card.href = smogonUrl;
+          card.target = "_blank";
+          card.rel = "noopener";
 
           const img = document.createElement('img');
           img.alt = namePretty;
