@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Allowlist Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 150px;
+      height: auto;
+    }
+    .name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .id {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="title">Carregando...</h1>
+  <div class="container" id="pokemonContainer"></div>
+
+  <script src="js/render.js"></script>
+</body>
+</html>
