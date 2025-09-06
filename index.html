@@ -18,20 +18,47 @@
     }
 
     header {
-      padding: 50px 20px 30px;
+      width: 100%;
+      padding: 40px 20px 20px;
       text-align: center;
       color: white;
       text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      position: relative;
     }
 
     header h1 {
       font-size: 2.6rem;
       margin-bottom: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 img {
+      height: 60px;
+      vertical-align: middle;
     }
 
     header p {
       font-size: 1.1rem;
       opacity: 0.95;
+    }
+
+    /* Ícone do Discord no topo direito */
+    .discord-link {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .discord-link img {
+      height: 48px;
+      transition: transform 0.25s;
+    }
+
+    .discord-link img:hover {
+      transform: scale(1.1);
     }
 
     .container {
@@ -74,7 +101,19 @@
 </head>
 <body>
   <header>
-    <h1>📜 Escolha sua Tier</h1>
+    <!-- Ícone Discord -->
+    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
+      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
+    </a>
+
+    <!-- Título com mascote linkado -->
+    <h1>
+      <a href="https://seusite.com" target="_blank">
+        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      </a>
+      📜 Escolha sua Tier
+    </h1>
+
     <p>Selecione abaixo a Tier que deseja consultar</p>
   </header>
 
