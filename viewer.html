@@ -16,7 +16,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #e6e6e6; /* texto claro */
+      color: #e6e6e6;
     }
 
     header {
@@ -60,7 +60,7 @@
     }
 
     .card {
-      background: #2E2D2D;  /* cor atualizada dos botões */
+      background: #2E2D2D;  /* cor dos botões */
       border-radius: 12px;
       padding: 14px;
       display: flex;
@@ -81,7 +81,7 @@
       height: 84px;
       object-fit: contain;
       border-radius: 8px;
-      background: linear-gradient(180deg,#222,#111);
+      background-color: #2E2D2D; /* fundo igual ao botão */
       flex: 0 0 84px;
     }
 
@@ -161,7 +161,7 @@
           img.onerror = function() {
             this.onerror = null;
             this.src = fallbackRemote || 'data:image/svg+xml;utf8,' + encodeURIComponent(
-              '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#333" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'
+              '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#2E2D2D" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'
             );
           };
 
