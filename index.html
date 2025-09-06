@@ -15,7 +15,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #e6e6e6;
+      color: #ffd700; /* todos os textos em amarelo */
     }
 
     header {
@@ -25,7 +25,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #fff;
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
     }
 
@@ -35,6 +34,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      color: #ffd700; /* título em amarelo */
     }
 
     header h1 img {
@@ -62,15 +62,15 @@
     }
 
     .card {
-      background: #2E2D2D;   /* fundo do botão/card escuro */
+      background: #2E2D2D;   /* fundo escuro dos cards */
       border-radius: 16px;
       padding: 20px 15px;
       text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6); /* sombra mais escura */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
       transition: transform 0.25s, box-shadow 0.25s;
       cursor: pointer;
       text-decoration: none;
-      color: #e6e6e6;  /* texto claro */
+      color: #ffd700;  /* textos do card em amarelo */
       display: flex;
       align-items: center;
       gap: 15px;
@@ -78,14 +78,14 @@
 
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3); /* leve toque amarelo ao hover */
+      box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3); /* sombra amarela leve */
     }
 
     .card img {
       width: 80px;
       height: auto;
       border-radius: 8px;
-      background-color: #2E2D2D; /* fundo da imagem igual ao card */
+      background-color: #2E2D2D;
     }
 
     .card-text {
@@ -97,19 +97,18 @@
     .card h2 {
       margin: 0 0 5px 0;
       font-size: 1.4rem;
-      color: #ffd700; /* título do card em amarelo para contraste */
+      color: #ffd700; /* título do card em amarelo */
     }
 
     .card p {
       margin: 0;
       font-size: 0.95rem;
-      color: #ccc; /* texto secundário mais claro */
+      color: #ffd700; /* texto secundário em amarelo */
     }
   </style>
 </head>
 <body>
   <header>
-    <!-- Mascote com link para o site principal -->
     <h1>
       <a href="https://www.humblepixelmon.com.br" target="_blank">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
@@ -117,7 +116,6 @@
       Escolha sua Tier
     </h1>
 
-    <!-- Discord no canto superior direito -->
     <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
       <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
     </a>
