@@ -82,9 +82,6 @@
       text-transform: capitalize; 
       color:#fff; 
     }
-
-    .note { width: 90%; max-width: 1200px; color:#222; padding: 10px 30px 0 30px; box-sizing:border-box; }
-    code { background:#eee; padding:2px 6px; border-radius:4px; }
   </style>
 </head>
 <body>
@@ -101,7 +98,6 @@
     </a>
   </header>
 
-  <div class="note" id="note"></div>
   <div class="container" id="pokemonContainer"></div>
 
   <script>
@@ -117,7 +113,6 @@
     document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('pokemonContainer');
       const header = document.querySelector('header h1');
-      const note = document.getElementById('note');
 
       const params = new URLSearchParams(window.location.search);
       const file = params.get('file') || 'allowlist_Starters.json';
@@ -172,11 +167,8 @@
           container.appendChild(card);
         });
 
-        note.innerHTML = `<small>Imagens locais tentadas em <code>img/&lt;nome-da-chave&gt;.png</code>. Se não existir, é usado o campo <code>sprite</code> do JSON.</small>`;
-
       } catch (err) {
-        note.innerHTML = `<strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}`;
-        container.innerHTML = '';
+        container.innerHTML = `<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`;
         console.error(err);
       }
     });
