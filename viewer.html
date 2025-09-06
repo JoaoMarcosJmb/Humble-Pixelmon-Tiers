@@ -5,42 +5,81 @@
   <title>Allowlist Viewer</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
-      text-align: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    header {
+      padding: 40px 20px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 30px;
     }
+
     .card {
       background: white;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      padding: 20px 15px;
+      border-radius: 18px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-align: center;
     }
+
     .card:hover {
-      transform: scale(1.05);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     }
+
     .card img {
-      width: 150px;
+      width: 160px;
       height: auto;
+      margin-bottom: 12px;
     }
+
     .name {
-      font-size: 18px;
+      font-size: 1.2rem;
       font-weight: bold;
-      margin-top: 10px;
+      color: #333;
+      margin-bottom: 6px;
+      text-transform: capitalize;
     }
+
     .id {
-      color: gray;
+      font-size: 0.95rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
-  <h1 id="title">Carregando...</h1>
+  <header>
+    <h1 id="title">Carregando...</h1>
+    <p>Lista de Pokémon permitidos nesta tier</p>
+  </header>
+
   <div class="container" id="pokemonContainer"></div>
 
   <script src="js/render.js"></script>
