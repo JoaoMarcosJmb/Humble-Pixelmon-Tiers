@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, rgba(244,185,66,0.7), rgba(212,225,87,0.7)),
+      background: linear-gradient(135deg, rgba(30,30,30,0.95), rgba(50,40,20,0.95)),
                   url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
       background-size: cover;
       margin: 0;
@@ -15,6 +15,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: #e6e6e6;
     }
 
     header {
@@ -24,8 +25,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: white;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      color: #fff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
     }
 
     header h1 {
@@ -61,29 +62,30 @@
     }
 
     .card {
-      background: white;
+      background: #2E2D2D;   /* fundo do botão/card escuro */
       border-radius: 16px;
       padding: 20px 15px;
       text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6); /* sombra mais escura */
       transition: transform 0.25s, box-shadow 0.25s;
       cursor: pointer;
       text-decoration: none;
-      color: #333;
+      color: #e6e6e6;  /* texto claro */
       display: flex;
       align-items: center;
-      gap: 15px; /* espaço entre imagem e texto */
+      gap: 15px;
     }
 
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3); /* leve toque amarelo ao hover */
     }
 
     .card img {
       width: 80px;
       height: auto;
       border-radius: 8px;
+      background-color: #2E2D2D; /* fundo da imagem igual ao card */
     }
 
     .card-text {
@@ -95,13 +97,13 @@
     .card h2 {
       margin: 0 0 5px 0;
       font-size: 1.4rem;
-      color: #444;
+      color: #ffd700; /* título do card em amarelo para contraste */
     }
 
     .card p {
       margin: 0;
       font-size: 0.95rem;
-      color: #666;
+      color: #ccc; /* texto secundário mais claro */
     }
   </style>
 </head>
@@ -123,7 +125,7 @@
 
   <div class="container">
     <a href="viewer.html?file=allowlist_Monomon.json" class="card">
-      <img src="img/Monomon.png" alt="Monomon"> <!-- Imagem local Monomon -->
+      <img src="img/Monomon.png" alt="Monomon">
       <div class="card-text">
         <h2>Monomon</h2>
         <p>Restrição a apenas uma Especie por equipe</p>
@@ -131,7 +133,7 @@
     </a>
 
     <a href="viewer.html?file=allowlist_Starters.json" class="card">
-      <img src="img/Starters.png" alt="Starters"> <!-- Imagem local Starters -->
+      <img src="img/Starters.png" alt="Starters">
       <div class="card-text">
         <h2>Starters</h2>
         <p>Somente Pokémon iniciais e suas evoluções</p>
