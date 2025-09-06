@@ -18,7 +18,7 @@
     }
 
     header {
-      padding: 50px 20px 30px;
+      padding: 50px 20px 20px;
       text-align: center;
       color: white;
       text-shadow: 0 2px 6px rgba(0,0,0,0.6);
@@ -43,13 +43,30 @@
       opacity: 0.95;
     }
 
+    /* Discord centralizado abaixo do header */
+    .discord-link {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0 30px;
+    }
+
+    .discord-link img {
+      height: 50px;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+
+    .discord-link img:hover {
+      transform: scale(1.1);
+    }
+
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
       width: 90%;
       max-width: 1000px;
-      padding: 30px;
+      padding: 0 30px 30px;
     }
 
     .card {
@@ -79,23 +96,6 @@
       font-size: 0.95rem;
       color: #666;
     }
-
-    /* Botão do Discord dentro do fluxo */
-    .discord-link {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-    }
-
-    .discord-link img {
-      height: 50px;
-      cursor: pointer;
-      transition: transform 0.25s;
-    }
-
-    .discord-link img:hover {
-      transform: scale(1.1);
-    }
   </style>
 </head>
 <body>
@@ -105,12 +105,12 @@
       <a href="https://www.humblepixelmon.com.br" target="_blank">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       </a>
-      📜 Escolha sua Tier
+      Escolha sua Tier
     </h1>
     <p>Selecione abaixo a Tier que deseja consultar</p>
   </header>
 
-  <!-- Botão do Discord -->
+  <!-- Discord centralizado -->
   <div class="discord-link">
     <a href="https://discord.gg/whV6hbVRvk" target="_blank">
       <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
