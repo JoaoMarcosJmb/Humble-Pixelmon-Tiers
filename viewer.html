@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Allowlist Viewer</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -15,6 +16,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      color: #222;
     }
 
     header {
@@ -36,134 +38,150 @@
       gap: 12px;
     }
 
-    header h1 img {
-      height: 50px;
-      cursor: pointer;
-    }
-
-    .discord-link img {
-      height: 50px;
-      cursor: pointer;
-      transition: transform 0.25s;
-    }
-
-    .discord-link img:hover {
-      transform: scale(1.1);
-    }
+    header h1 a img { height: 50px; }
 
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
+      gap: 20px;
       width: 90%;
       max-width: 1200px;
       padding: 30px;
+      box-sizing: border-box;
     }
 
     .card {
       background: white;
-      border-radius: 16px;
-      padding: 20px 15px;
-      text-align: left;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-      transition: transform 0.25s, box-shadow 0.25s;
+      border-radius: 12px;
+      padding: 14px;
       display: flex;
       align-items: center;
-      gap: 15px;
-      cursor: pointer;
+      gap: 12px;
       text-decoration: none;
-      color: #333;
+      color: inherit;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      transition: transform .2s, box-shadow .2s;
     }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); }
 
     .card img {
-      width: 80px;
-      height: auto;
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
       border-radius: 8px;
+      background: linear-gradient(180deg,#fff,#f3f3f3);
+      flex: 0 0 84px;
     }
 
-    .card-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+    .card-text { display:flex; flex-direction:column; gap:6px; }
+    .card-text h2 { margin: 0; font-size: 1.15rem; text-transform: capitalize; }
+    .card-text p { margin: 0; color: #666; font-size: .95rem; }
 
-    .card-text h2 {
-      margin: 0 0 5px 0;
-      font-size: 1.4rem;
-      color: #444;
-    }
-
-    .card-text p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #666;
-    }
+    .note { width: 90%; max-width: 1200px; color:#222; padding: 10px 30px 0 30px; box-sizing:border-box; }
+    code { background:#eee; padding:2px 6px; border-radius:4px; }
   </style>
 </head>
 <body>
   <header>
     <h1>
-      <a href="https://www.humblepixelmon.com.br" target="_blank">
+      <a href="https://www.humblepixelmon.com.br" target="_blank" rel="noopener">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       </a>
       Carregando...
     </h1>
 
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
-      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
+    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link" rel="noopener">
+      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord" style="height:50px;">
     </a>
   </header>
 
+  <div class="note" id="note"></div>
   <div class="container" id="pokemonContainer"></div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById("pokemonContainer");
-      const title = document.querySelector("header h1");
+    // Helper: transforma "venusaur-mega" => "Venusaur Mega"
+    function prettifyKey(key) {
+      return key
+        .replace(/-/g, ' ')
+        .split(' ')
+        .map(w => w ? w[0].toUpperCase() + w.slice(1) : '')
+        .join(' ');
+    }
 
-      // JSONs embutidos
-      const allowlists = {
-        "allowlist_Monomon.json": [
-          { name: "Monomon1", id: 101, image: "img/Monomon.png" },
-          { name: "Monomon2", id: 102, image: "img/Monomon.png" }
-        ],
-        "allowlist_Starters.json": [
-          { name: "Bulbasaur", id: 1, image: "img/Starters.png" },
-          { name: "Charmander", id: 4, image: "img/Starters.png" },
-          { name: "Squirtle", id: 7, image: "img/Starters.png" }
-        ]
-      };
+    document.addEventListener('DOMContentLoaded', async () => {
+      const container = document.getElementById('pokemonContainer');
+      const header = document.querySelector('header h1');
+      const note = document.getElementById('note');
 
-      // Pega qual JSON mostrar
       const params = new URLSearchParams(window.location.search);
-      const file = params.get("file") || "allowlist_Starters.json";
+      const file = params.get('file') || 'allowlist_Starters.json';
 
-      if (!allowlists[file]) {
-        title.textContent = "Erro: Arquivo não encontrado";
-        container.innerHTML = "<p>Use ?file=allowlist_Monomon.json ou ?file=allowlist_Starters.json</p>";
-        return;
+      // Atualiza título mantendo o logo
+      const logoHTML = header.querySelector('a').outerHTML;
+      const displayTitle = file.includes('Monomon') ? 'Monomon' : file.replace('.json','').replace('allowlist_','').replace(/_/g,' ');
+      header.innerHTML = `${logoHTML} ${displayTitle}`;
+
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error('Arquivo não encontrado ou erro ao buscar: ' + res.statusText);
+        const data = await res.json();
+
+        const entries = Object.entries(data);
+        if (entries.length === 0) {
+          container.innerHTML = '<p>Nenhum item encontrado no JSON.</p>';
+          return;
+        }
+
+        // para cada chave no JSON (ex: "bulbasaur": { id:..., sprite: ... })
+        entries.forEach(([key, info]) => {
+          const namePretty = prettifyKey(key);
+          const localImgPath = `img/${encodeURIComponent(key)}.png`; // img/bulbasaur.png
+          const fallbackRemote = info && info.sprite ? info.sprite : '';
+
+          // monta card
+          const card = document.createElement('div');
+          card.className = 'card';
+
+          const img = document.createElement('img');
+          img.alt = namePretty;
+          img.loading = 'lazy';
+          // tenta local primeiro; se falhar, troca para o sprite remoto
+          img.src = localImgPath;
+          img.onerror = function() {
+            // evita loop infinito
+            this.onerror = null;
+            if (fallbackRemote) {
+              this.src = fallbackRemote;
+            } else {
+              // se não tiver sprite remoto, usa placeholder embutido (simples SVG data URI)
+              this.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#eee" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'
+              );
+            }
+          };
+
+          const cardText = document.createElement('div');
+          cardText.className = 'card-text';
+          const h2 = document.createElement('h2'); h2.textContent = namePretty;
+          const p = document.createElement('p'); p.textContent = 'ID: ' + (info && info.id ? info.id : '—');
+
+          cardText.appendChild(h2);
+          cardText.appendChild(p);
+          card.appendChild(img);
+          card.appendChild(cardText);
+          container.appendChild(card);
+        });
+
+        note.innerHTML = `<small>Imagens locais tentadas em <code>img/&lt;nome-da-chave&gt;.png</code>. Se não existir, é usado o campo <code>sprite</code> do JSON.</small>`;
+
+      } catch (err) {
+        // erro ao buscar JSON (ex.: abrir via file:// pode bloquear fetch)
+        note.innerHTML = `<strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message} <br>
+        Dica: verifique se o viewer e os JSONs estão no mesmo diretório e se você está servindo os arquivos via HTTP (ex.: execute um servidor local como <code>python -m http.server</code>) — abrir diretamente com <code>file://</code> pode bloquear a leitura via fetch.`;
+
+        container.innerHTML = '';
+        console.error(err);
       }
-
-      const data = allowlists[file];
-      title.textContent = file.includes("Monomon") ? "Monomon" : "Starters";
-
-      data.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <img src="${p.image}" alt="${p.name}">
-          <div class="card-text">
-            <h2>${p.name}</h2>
-            <p>ID: ${p.id}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
     });
   </script>
 </body>
