@@ -107,7 +107,6 @@
 </head>
 <body>
   <header>
-    <!-- Mascote com link para o site principal -->
     <h1>
       <a href="https://www.humblepixelmon.com.br" target="_blank">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
@@ -115,7 +114,6 @@
       Carregando...
     </h1>
 
-    <!-- Discord no topo -->
     <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
       <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
     </a>
@@ -128,56 +126,44 @@
       const container = document.getElementById("pokemonContainer");
       const title = document.querySelector("header h1");
 
-      if (!container || !title) {
-        console.error("Elementos HTML não encontrados");
-        return;
-      }
+      // JSONs embutidos
+      const allowlists = {
+        "allowlist_Monomon.json": [
+          { name: "Monomon1", id: 101, image: "img/Monomon.png" },
+          { name: "Monomon2", id: 102, image: "img/Monomon.png" }
+        ],
+        "allowlist_Starters.json": [
+          { name: "Bulbasaur", id: 1, image: "img/Starters.png" },
+          { name: "Charmander", id: 4, image: "img/Starters.png" },
+          { name: "Squirtle", id: 7, image: "img/Starters.png" }
+        ]
+      };
 
-      // Pega o arquivo JSON a partir da URL
+      // Pega qual JSON mostrar
       const params = new URLSearchParams(window.location.search);
-      let file = params.get("file");
+      const file = params.get("file") || "allowlist_Starters.json";
 
-      if (!file || (file !== "allowlist_Monomon.json" && file !== "allowlist_Starters.json")) {
+      if (!allowlists[file]) {
         title.textContent = "Erro: Arquivo não encontrado";
         container.innerHTML = "<p>Use ?file=allowlist_Monomon.json ou ?file=allowlist_Starters.json</p>";
         return;
       }
 
-      fetch(file)
-        .then(res => {
-          if (!res.ok) throw new Error("Não foi possível carregar o JSON");
-          return res.json();
-        })
-        .then(data => {
-          title.textContent = file.includes("Monomon") ? "Monomon" : "Starters";
+      const data = allowlists[file];
+      title.textContent = file.includes("Monomon") ? "Monomon" : "Starters";
 
-          if (!Array.isArray(data) || data.length === 0) {
-            container.innerHTML = "<p>Nenhum Pokémon encontrado nessa tier.</p>";
-            return;
-          }
-
-          data.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "card";
-
-            // Imagem padrão se não houver
-            const imgSrc = p.image ? p.image : (file.includes("Monomon") ? "img/Monomon.png" : "img/Starters.png");
-
-            card.innerHTML = `
-              <img src="${imgSrc}" alt="${p.name}">
-              <div class="card-text">
-                <h2>${p.name}</h2>
-                <p>ID: ${p.id}</p>
-              </div>
-            `;
-            container.appendChild(card);
-          });
-        })
-        .catch(err => {
-          console.error(err);
-          title.textContent = "Erro ao carregar os dados";
-          container.innerHTML = "<p>Verifique se o arquivo JSON existe e o caminho está correto.</p>";
-        });
+      data.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${p.image}" alt="${p.name}">
+          <div class="card-text">
+            <h2>${p.name}</h2>
+            <p>ID: ${p.id}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
     });
   </script>
 </body>
