@@ -7,7 +7,14 @@ async function loadAllowlist() {
     return;
   }
 
-  document.getElementById("title").textContent = `Exibindo: ${file}`;
+  // Deixa o nome bonito: remove prefixo/sufixo e coloca primeira letra maiúscula
+  let displayName = file
+    .replace("allowlist_", "")   // tira "allowlist_"
+    .replace(".json", "");       // tira ".json"
+
+  displayName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+
+  document.getElementById("title").textContent = `Tier: ${displayName}`;
 
   try {
     const response = await fetch(file);
