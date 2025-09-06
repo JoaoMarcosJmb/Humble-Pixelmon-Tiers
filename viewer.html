@@ -22,7 +22,7 @@
     header {
       width: 100%;
       max-width: 1200px;
-      padding: 20px 30px;
+      padding: 20px 30px 10px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -39,6 +39,15 @@
     }
 
     header h1 a img { height: 50px; }
+
+    .subtitle {
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 30px 20px 30px;
+      font-size: 1.2rem;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
 
     .container {
       display: grid;
@@ -98,6 +107,7 @@
     </a>
   </header>
 
+  <div class="subtitle" id="subtitle"></div>
   <div class="container" id="pokemonContainer"></div>
 
   <script>
@@ -113,17 +123,19 @@
     document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('pokemonContainer');
       const header = document.querySelector('header h1');
+      const subtitle = document.getElementById('subtitle');
 
       const params = new URLSearchParams(window.location.search);
       const file = params.get('file') || 'allowlist_Starters.json';
 
-      // Atualiza título mantendo o logo
+      // Atualiza título e subtítulo
       const logoHTML = header.querySelector('a').outerHTML;
       const tierName = file
         .replace('.json','')
         .replace('allowlist_','')
         .replace(/_/g,' ');
-      header.innerHTML = `${logoHTML} Pokémons permitidos (${tierName})`;
+      header.innerHTML = `${logoHTML} ${tierName}`;
+      subtitle.textContent = `Pokémons permitidos nessa tier:`;
 
       try {
         const res = await fetch(file);
