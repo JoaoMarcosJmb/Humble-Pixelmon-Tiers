@@ -6,29 +6,25 @@
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, rgba(244,185,66,0.7), rgba(212,225,87,0.7)),
-                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       margin: 0;
       padding: 0;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-    }
-
-    header {
-      width: 100%;
-      padding: 40px 20px 20px;
-      text-align: center;
-      color: white;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
       position: relative;
     }
 
+    header {
+      padding: 40px 20px 20px;
+      text-align: center;
+      color: white;
+    }
+
     header h1 {
-      font-size: 2.6rem;
-      margin-bottom: 12px;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -36,29 +32,14 @@
     }
 
     header h1 img {
-      height: 60px;
+      height: 50px;
       vertical-align: middle;
+      cursor: pointer;
     }
 
     header p {
-      font-size: 1.1rem;
-      opacity: 0.95;
-    }
-
-    /* Ícone do Discord no topo direito */
-    .discord-link {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    .discord-link img {
-      height: 48px;
-      transition: transform 0.25s;
-    }
-
-    .discord-link img:hover {
-      transform: scale(1.1);
+      font-size: 1rem;
+      opacity: 0.9;
     }
 
     .container {
@@ -66,67 +47,81 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
       width: 90%;
-      max-width: 1000px;
+      max-width: 1200px;
       padding: 30px;
     }
 
     .card {
       background: white;
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 20px 15px;
+      border-radius: 18px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
       transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      text-decoration: none;
-      color: #333;
+      text-align: center;
     }
 
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
     }
 
-    .card h2 {
-      margin: 10px 0 5px;
-      font-size: 1.4rem;
-      color: #444;
+    .card img {
+      width: 160px;
+      height: auto;
+      margin-bottom: 12px;
     }
 
-    .card p {
+    .name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+      text-transform: capitalize;
+    }
+
+    .id {
       font-size: 0.95rem;
-      color: #666;
+      color: #777;
+    }
+
+    /* Ícone do Discord fixo no canto inferior esquerdo */
+    .discord-link {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .discord-link img {
+      height: 50px;
+      transition: transform 0.25s;
+      cursor: pointer;
+    }
+
+    .discord-link img:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
 <body>
   <header>
-    <!-- Ícone Discord -->
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
-      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
-    </a>
-
-    <!-- Título com mascote linkado -->
+    <!-- Mascote com link para o site principal -->
     <h1>
-      <a href="https://seusite.com" target="_blank">
+      <a href="https://www.humblepixelmon.com.br" target="_blank">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       </a>
-      📜 Escolha sua Tier
+      Carregando...
     </h1>
-
-    <p>Selecione abaixo a Tier que deseja consultar</p>
+    <p>Lista de Pokémon permitidos nesta tier</p>
   </header>
 
-  <div class="container">
-    <a href="viewer.html?file=allowlist_Monomon.json" class="card">
-      <h2>Monomon</h2>
-      <p>Restrição a apenas uma Especie por equipe</p>
-    </a>
+  <div class="container" id="pokemonContainer"></div>
 
-    <a href="viewer.html?file=allowlist_Starters.json" class="card">
-      <h2>Starters</h2>
-      <p>Somente Pokémon iniciais e suas evoluções</p>
-    </a>
-  </div>
+  <!-- Link do Discord fixo no canto inferior esquerdo -->
+  <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
+    <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
+  </a>
+
+  <script src="js/render.js"></script>
 </body>
 </html>
