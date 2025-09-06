@@ -6,7 +6,9 @@
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, rgba(244,185,66,0.7), rgba(212,225,87,0.7)),
+                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+      background-size: cover;
       margin: 0;
       padding: 0;
       min-height: 100vh;
@@ -16,19 +18,37 @@
     }
 
     header {
-      padding: 40px 20px 20px;
-      text-align: center;
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       color: white;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
     }
 
     header h1 {
       font-size: 2.2rem;
-      margin-bottom: 8px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    header p {
-      font-size: 1rem;
-      opacity: 0.9;
+    header h1 img {
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .discord-link img {
+      height: 50px;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+
+    .discord-link img:hover {
+      transform: scale(1.1);
     }
 
     .container {
@@ -76,10 +96,21 @@
 </head>
 <body>
   <header>
-    <h1 id="title">Carregando...</h1>
-    <p>Lista de Pokémon permitidos nesta tier</p>
+    <!-- Mascote com link para o site principal -->
+    <h1>
+      <a href="https://www.humblepixelmon.com.br" target="_blank">
+        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      </a>
+      Carregando...
+    </h1>
+
+    <!-- Discord no canto superior direito -->
+    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
+      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
+    </a>
   </header>
 
+  <!-- Container onde os pokémons serão carregados -->
   <div class="container" id="pokemonContainer"></div>
 
   <script src="js/render.js"></script>
