@@ -19,6 +19,7 @@
       color: #ffd700;
     }
 
+    /* ---------- Header ---------- */
     header {
       width: 100%;
       max-width: 1200px;
@@ -27,6 +28,7 @@
       justify-content: space-between;
       align-items: center;
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      position: relative;
     }
 
     header h1 {
@@ -40,45 +42,78 @@
 
     header h1 a img { height: 50px; }
 
-    /* ===== MENU HAMBURGUER ===== */
+    /* ---------- Menu Hamburguer ---------- */
     .menu-toggle {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 22px;
+      justify-content: space-around;
+      width: 32px;
+      height: 26px;
+      background: transparent;
+      border: none;
       cursor: pointer;
+      z-index: 1001;
     }
+
     .menu-toggle span {
       display: block;
+      width: 100%;
       height: 4px;
       background: #ffd700;
-      border-radius: 4px;
+      border-radius: 2px;
       transition: 0.3s;
     }
+
     nav {
       position: fixed;
       top: 0;
       right: -260px;
       width: 240px;
       height: 100%;
-      background: rgba(20,20,20,0.95);
-      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
-      padding: 60px 20px;
+      background: rgba(20, 20, 20, 0.95);
+      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
+      padding-top: 80px;
       transition: right 0.3s ease;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+      padding-left: 20px;
     }
+
+    nav.open {
+      right: 0;
+    }
+
     nav a {
       color: #ffd700;
       text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.2s;
+      font-size: 1.2rem;
+      transition: 0.2s;
     }
-    nav a:hover { color: #fff176; }
-    nav.active { right: 0; }
 
+    nav a:hover {
+      color: #fff176;
+    }
+
+    /* ---------- Botão Início em destaque ---------- */
+    nav a.inicio {
+      font-size: 1.4rem;
+      font-weight: bold;
+      background: #ffd700;
+      color: #222;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    nav a.inicio:hover {
+      background: #ffeb3b;
+      color: #000;
+    }
+
+    /* ---------- Conteúdo ---------- */
     .subtitle {
       width: 100%;
       max-width: 1200px;
@@ -141,28 +176,29 @@
       Carregando...
     </h1>
 
-    <!-- MENU HAMBURGUER -->
-    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
 
-  <!-- MENU LATERAL -->
-  <nav>
-    <a href="index.html">🏠 Página Inicial</a>
-    <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
-    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
-    <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
-  </nav>
+    <nav id="menu">
+      <a href="index.html" class="inicio">🏠 Início</a>
+      <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
+      <a href="index.html">📋 Tiers</a>
+      <a href="notas.html">📝 Notas de Atualização</a>
+    </nav>
+  </header>
 
   <div class="subtitle" id="subtitle"></div>
   <div class="container" id="pokemonContainer"></div>
 
   <script>
+    // Toggle menu
+    const menuToggle = document.querySelector(".menu-toggle");
+    const menu = document.getElementById("menu");
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("open");
+    });
+
     function prettifyKey(key) {
       return key
         .replace(/-/g, ' ')
@@ -173,27 +209,15 @@
 
     function normalizeName(key) {
       let name = key.toLowerCase().replace(/\s+/g, '-');
-      const keepForms = [
-        "lycanroc-dusk", "lycanroc-midnight",
-        "landorus-therian", "thundurus-therian", "tornadus-therian",
-        "urshifu-rapid-strike", "urshifu-single-strike"
-      ];
+      const keepForms = ["lycanroc-dusk","lycanroc-midnight","landorus-therian","thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"];
       if (keepForms.includes(name)) return name;
       if (name.includes("-alola") || name.includes("-galar") || name.includes("-hisui") || name.includes("-paldea")) return name;
       if (name.startsWith("oricorio")) return "oricorio";
       if (name.startsWith("arceus-")) return "arceus";
       if (name === "giratina-origin") return "giratina";
       if (name.endsWith("-mega")) return name.replace("-mega", "");
-      const removeSuffixes = [
-        "-origin", "-therian", "-resolute", "-pirouette", "-eternal",
-        "-blade", "-base", "-average", "-school", "-dusk", "-dawn", "-midday",
-        "-ice", "-fire", "-water", "-grass", "-rock", "-fighting", "-flying",
-        "-ghost", "-dark", "-fairy", "-dragon", "-bug", "-ground", "-poison",
-        "-psychic", "-steel", "-electric", "-normal"
-      ];
-      for (const suf of removeSuffixes) {
-        if (name.endsWith(suf)) return name.replace(suf, "");
-      }
+      const removeSuffixes = ["-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base","-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass","-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug","-ground","-poison","-psychic","-steel","-electric","-normal"];
+      for (const suf of removeSuffixes) if (name.endsWith(suf)) return name.replace(suf, "");
       return name;
     }
 
@@ -206,12 +230,8 @@
       const file = params.get('file') || 'allowlist_Starters.json';
 
       const logoHTML = header.querySelector('a').outerHTML;
-      const tierName = file
-        .replace('.json','')
-        .replace('allowlist_','')
-        .replace(/_/g,' ');
+      const tierName = file.replace('.json','').replace('allowlist_','').replace(/_/g,' ');
       header.innerHTML = `${logoHTML} ${tierName}`;
-
       subtitle.textContent = `Pokémons permitidos nessa tier:`;
 
       try {
@@ -264,15 +284,6 @@
       } catch (err) {
         container.innerHTML = `<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`;
         console.error(err);
-      }
-    });
-
-    // Fecha o menu se clicar fora
-    document.addEventListener("click", function(e) {
-      const nav = document.querySelector("nav");
-      const toggle = document.querySelector(".menu-toggle");
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove("active");
       }
     });
   </script>
