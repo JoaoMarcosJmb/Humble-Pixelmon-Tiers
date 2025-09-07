@@ -1,282 +1,123 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Allowlist Viewer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, rgba(30,30,30,0.95), rgba(50,40,20,0.95)),
-                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #ffffff; /* Texto padrão do conteúdo em branco */
-    }
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(25,25,25,0.9), rgba(45,35,25,0.9)),
+                url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #f5f5f5;
+  }
 
-    /* ---------- Cabeçalho ---------- */
-    header {
-      width: 100%;
-      max-width: 1200px;
-      padding: 20px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-      position: relative;
-      box-sizing: border-box;
-    }
+  /* ---------- Cabeçalho ---------- */
+  header {
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20,20,20,0.85);
+    border-bottom: 2px solid #c9a32c; /* dourado suave */
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 1000;
+  }
 
-    header h1 {
-      font-size: 2.2rem;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #ffd700; /* Mantém o título amarelo */
-    }
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #c9a32c; /* dourado suave */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  }
 
-    header h1 a img { height: 50px; }
+  header h1 a img {
+    height: 50px;
+    border-radius: 8px;
+  }
 
-    /* ---------- Menu Hamburguer ---------- */
-    .menu-toggle {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 32px;
-      height: 26px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      z-index: 1001;
-    }
+  /* ---------- Menu Hamburguer ---------- */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+  }
 
-    .menu-toggle span {
-      display: block;
-      width: 100%;
-      height: 4px;
-      background: #ffd700; /* Barrinhas do menu amarelas */
-      border-radius: 2px;
-      transition: 0.3s;
-    }
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #c9a32c;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
 
-    nav {
-      position: fixed;
-      top: 0;
-      right: -260px;
-      width: 240px;
-      height: 100%;
-      background: rgba(20, 20, 20, 0.95);
-      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
-      padding-top: 80px;
-      transition: right 0.3s ease;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding-left: 20px;
-    }
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
 
-    nav.open {
-      right: 0;
-    }
+  /* ---------- Menu Lateral ---------- */
+  nav {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 240px;
+    height: 100%;
+    background: rgba(30,30,30,0.95);
+    box-shadow: -2px 0 12px rgba(0,0,0,0.7);
+    padding-top: 80px;
+    padding-left: 20px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 0 0 0 12px;
+  }
 
-    nav a {
-      color: #ffd700; /* Links do menu amarelos */
-      text-decoration: none;
-      font-size: 1.2rem;
-      transition: 0.2s;
-    }
+  nav.open {
+    right: 0;
+  }
 
-    nav a:hover {
-      color: #fff176;
-    }
+  nav a {
+    color: #c9a32c;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+  }
 
-    /* ---------- Conteúdo ---------- */
-    .subtitle {
-  width: 100%;
-  max-width: 1200px; /* Mesma largura máxima do header */
-  padding: 0 30px 20px 30px; /* Mesma padding horizontal do header */
-  font-size: 1.2rem;
-  color: #ffffff; /* Texto branco */
-  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-  box-sizing: border-box; /* Garante que padding não aumente a largura */
-}
+  nav a:hover {
+    color: #ffd766;
+  }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      width: 90%;
-      max-width: 1200px;
-      padding: 30px;
-      box-sizing: border-box;
-    }
-
-    .card {
-      background: #2E2D2D;
-      border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: #ffffff; /* Texto do card em branco */
-      box-shadow: 0 6px 14px rgba(0,0,0,0.5);
-      transition: transform .2s, box-shadow .2s;
-    }
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.7);
-    }
-
-    .card img {
-      width: 84px;
-      height: 84px;
-      object-fit: contain;
-      border-radius: 8px;
-      background-color: #2E2D2D;
-      flex: 0 0 84px;
-    }
-
-    .card-text h2 {
-      margin: 0;
-      font-size: 1.15rem;
-      text-transform: capitalize;
-      color: #ffffff; /* Nome do Pokémon em branco */
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>
-      <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html" target="_blank" rel="noopener">
-        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-      </a>
-      Carregando...
-    </h1>
-
-    <button class="menu-toggle" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
-
-    <nav id="menu">
-      <a href="index.html">🏠 Início</a>
-      <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
-      <a href="index.html">📋 Tiers</a>
-      <a href="notas.html">📝 Notas de Atualização</a>
-      <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
-    </nav>
-  </header>
-
-  <div class="subtitle" id="subtitle"></div>
-  <div class="container" id="pokemonContainer"></div>
-
-  <script>
-    const menuToggle = document.querySelector(".menu-toggle");
-    const menu = document.getElementById("menu");
-
-    menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("open");
-    });
-
-    menu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => menu.classList.remove("open"));
-    });
-
-    function prettifyKey(key) {
-      return key
-        .replace(/-/g, ' ')
-        .split(' ')
-        .map(w => w ? w[0].toUpperCase() + w.slice(1) : '')
-        .join(' ');
-    }
-
-    function normalizeName(key) {
-      let name = key.toLowerCase().replace(/\s+/g, '-');
-      const keepForms = ["lycanroc-dusk","lycanroc-midnight","landorus-therian","thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"];
-      if (keepForms.includes(name)) return name;
-      if (name.includes("-alola") || name.includes("-galar") || name.includes("-hisui") || name.includes("-paldea")) return name;
-      if (name.startsWith("oricorio")) return "oricorio";
-      if (name.startsWith("arceus-")) return "arceus";
-      if (name === "giratina-origin") return "giratina";
-      if (name.endsWith("-mega")) return name.replace("-mega", "");
-      const removeSuffixes = ["-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base","-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass","-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug","-ground","-poison","-psychic","-steel","-electric","-normal"];
-      for (const suf of removeSuffixes) if (name.endsWith(suf)) return name.replace(suf, "");
-      return name;
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      const container = document.getElementById('pokemonContainer');
-      const header = document.querySelector('header h1');
-      const subtitle = document.getElementById('subtitle');
-
-      const params = new URLSearchParams(window.location.search);
-      const file = params.get('file') || 'allowlist_Starters.json';
-
-      const logoHTML = header.querySelector('a').outerHTML;
-      const tierName = file.replace('.json','').replace('allowlist_','').replace(/_/g,' ');
-      header.innerHTML = `${logoHTML} ${tierName}`;
-      subtitle.textContent = `Pokémons permitidos nessa tier:`;
-
-      try {
-        const res = await fetch(file);
-        if (!res.ok) throw new Error('Arquivo não encontrado: ' + res.statusText);
-        const data = await res.json();
-
-        const entries = Object.entries(data);
-        if (entries.length === 0) {
-          container.innerHTML = '<p>Nenhum item encontrado no JSON.</p>';
-          return;
-        }
-
-        entries.forEach(([key, info]) => {
-          const namePretty = prettifyKey(key);
-          const smogonName = normalizeName(key);
-          const smogonUrl = `https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
-
-          const localImgPath = `img/${encodeURIComponent(key)}.png`;
-          const fallbackRemote = info && info.sprite ? info.sprite : '';
-
-          const card = document.createElement('a');
-          card.className = 'card';
-          card.href = smogonUrl;
-          card.target = "_blank";
-          card.rel = "noopener";
-
-          const img = document.createElement('img');
-          img.alt = namePretty;
-          img.loading = 'lazy';
-          img.src = localImgPath;
-          img.onerror = function() {
-            this.onerror = null;
-            this.src = fallbackRemote || 'data:image/svg+xml;utf8,' + encodeURIComponent(
-              '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#2E2D2D" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'
-            );
-          };
-
-          const cardText = document.createElement('div');
-          cardText.className = 'card-text';
-          const h2 = document.createElement('h2');
-          h2.textContent = namePretty;
-
-          cardText.appendChild(h2);
-          card.appendChild(img);
-          card.appendChild(cardText);
-          container.appendChild(card);
-        });
-
-      } catch (err) {
-        container.innerHTML = `<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`;
-        console.error(err);
-      }
-    });
-  </script>
-</body>
-</html>
-
+  /* ---------- Subtitulo ---------- */
+  .subtitle {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 30px 10px;
+    font-size: 1.25rem;
+    color: #f5f5f5;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+    box-sizing: border-box;
+  }
+</style>
