@@ -167,6 +167,7 @@
       <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
       <a href="index.html">📋 Tiers</a>
       <a href="notas.html">📝 Notas de Atualização</a>
+      <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
     </nav>
   </header>
 
@@ -176,9 +177,12 @@
   <script>
     const menuToggle = document.querySelector(".menu-toggle");
     const menu = document.getElementById("menu");
+
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("open");
     });
+
+    // Fecha o menu ao clicar em qualquer link
     menu.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => menu.classList.remove("open"));
     });
