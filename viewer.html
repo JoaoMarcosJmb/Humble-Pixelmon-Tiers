@@ -1,268 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Allowlist Viewer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root {
-      --cor-dourado: #d1a720;
-      --cor-fundo: #1a1a1a;
-      --cor-card: rgba(40, 35, 25, 0.85);
-      --cor-texto: #f5f5f5;
-    }
+<meta charset="UTF-8">
+<title>Allowlist Viewer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --cor-dourado: #d1a720;
+  --cor-fundo: #1a1a1a;
+  --cor-card: rgba(40, 35, 25, 0.85);
+  --cor-texto: #f5f5f5;
+}
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
-                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--cor-texto);
-    }
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
+              url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--cor-texto);
+}
 
-    /* ---------- HEADER ---------- */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(20,20,20,0.9);
-      border-bottom: 2px solid var(--cor-dourado);
-      box-shadow: 0 2px 8px var(--cor-dourado);
-      z-index: 1000;
-      box-sizing: border-box;
-    }
+/* ---------- HEADER ---------- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(20,20,20,0.95);
+  border-bottom: 2px solid var(--cor-dourado);
+  z-index: 1000;
+  box-sizing: border-box;
+}
 
-    header h1 {
-      font-size: 1.6rem;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--cor-dourado);
-    }
+header h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cor-dourado);
+}
 
-    header h1 img { height: 40px; }
+header h1 img { height: 40px; }
 
-    /* ---------- MENU HAMBURGUER ---------- */
-    .menu-toggle {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 22px;
-      cursor: pointer;
-      z-index: 1100;
-    }
+/* ---------- MENU HAMBURGUER ---------- */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1100;
+}
 
-    .menu-toggle span {
-      display: block;
-      height: 4px;
-      background: var(--cor-texto);
-      border-radius: 4px;
-      transition: 0.3s;
-    }
+.menu-toggle span {
+  display: block;
+  height: 4px;
+  background: var(--cor-texto);
+  border-radius: 4px;
+  transition: 0.3s;
+}
 
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .menu-toggle.active span:nth-child(2) { opacity: 0; }
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
-    /* ---------- MENU DROPDOWN ---------- */
-    nav {
-      position: absolute;
-      top: 65px;
-      right: 10px;
-      background: rgba(30,25,20,0.95);
-      border: 1px solid var(--cor-dourado);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-      display: none;
-      flex-direction: column;
-      padding: 15px;
-      gap: 12px;
-      z-index: 1200;
-      max-width: calc(100% - 20px);
-      overflow-wrap: break-word;
-    }
+/* ---------- MENU DROPDOWN ---------- */
+nav {
+  position: absolute;
+  top: 65px;
+  right: 10px;
+  background: rgba(30,25,20,0.95);
+  border: 1px solid var(--cor-dourado);
+  border-radius: 12px;
+  display: none;
+  flex-direction: column;
+  padding: 15px;
+  gap: 12px;
+  z-index: 1200;
+}
 
-    nav.active { display: flex; }
+nav.active { display: flex; }
 
-    nav a {
-      color: var(--cor-dourado);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--cor-texto); }
+nav a {
+  color: var(--cor-dourado);
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
 
-    /* ---------- CARDS ---------- */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-      width: 90%;
-      max-width: 1200px;
-      padding: 120px 30px 60px;
-      justify-items: center;
-      box-sizing: border-box;
-    }
+nav a:hover { color: var(--cor-texto); }
 
-    @media (max-width:1024px) { .container { grid-template-columns: repeat(3,1fr); } }
-    @media (max-width:768px) { .container { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width:480px) { .container { grid-template-columns: repeat(1,1fr); } }
+/* ---------- CARDS ---------- */
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  width: 90%;
+  max-width: 1200px;
+  padding: 120px 30px 60px;
+  justify-items: center;
+  box-sizing: border-box;
+}
 
-    .card {
-      background: var(--cor-card);
-      border-radius: 16px;
-      padding: 20px 15px;
-      text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--cor-dourado);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+@media(max-width:1024px){ .container{ grid-template-columns: repeat(3,1fr); } }
+@media(max-width:768px){ .container{ grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px){ .container{ grid-template-columns: repeat(1,1fr); } }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(209,167,32,0.3);
-    }
+.card {
+  width: 100%;
+  max-width: 260px;
+  height: 120px; /* altura fixa para todos os cards */
+  background: var(--cor-card);
+  border-radius: 16px;
+  padding: 20px 15px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.25s, box-shadow 0.25s;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--cor-dourado);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-    .card img {
-      width: 80px;
-      height: auto;
-      border-radius: 8px;
-      background-color: var(--cor-card);
-    }
+.card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
 
-    .card-text h2 { margin: 0 0 5px 0; font-size: 1.4rem; color: var(--cor-dourado); }
-    .card-text p { margin: 0; font-size: 0.95rem; color: var(--cor-texto); }
+.card img {
+  width: 80px;
+  height: 80px; /* tamanho fixo da imagem */
+  border-radius: 8px;
+  background-color: var(--cor-card);
+  flex: 0 0 80px;
+}
 
-    /* ---------- RESPONSIVO ---------- */
-    @media (max-width: 500px) {
-      header h1 { font-size: 1.3rem; }
-      .container { padding: 100px 15px 50px; gap: 15px; }
-      nav { right: 5px; left: 5px; }
-    }
-  </style>
+.card-text { display: flex; flex-direction: column; justify-content: center; }
+
+.card-text h2 { margin:0 0 5px 0; font-size:1.4rem; color:var(--cor-dourado); }
+.card-text p { margin:0; font-size:0.95rem; color:var(--cor-texto); }
+
+</style>
 </head>
 <body>
-  <header>
-    <h1>
-      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-      Escolha sua Tier
-    </h1>
-    <div class="menu-toggle" id="menuBtn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
+<header>
+  <h1>
+    <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+    Escolha sua Tier
+  </h1>
+  <div class="menu-toggle" id="menuBtn">
+    <span></span><span></span><span></span>
+  </div>
+</header>
 
-  <nav id="dropdownMenu">
-    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
-    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
-    <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
-  </nav>
+<nav id="dropdownMenu">
+  <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+  <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+  <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+  <a href="notas.html">📝 Notas de Atualização</a>
+  <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
+</nav>
 
-  <div class="container" id="pokemonContainer"></div>
+<div class="container" id="pokemonContainer"></div>
 
-  <script>
-    const menuBtn=document.getElementById("menuBtn");
-    const dropdownMenu=document.getElementById("dropdownMenu");
+<script>
+const menuBtn=document.getElementById("menuBtn");
+const dropdownMenu=document.getElementById("dropdownMenu");
 
-    menuBtn.addEventListener("click",()=> {
-      dropdownMenu.classList.toggle("active");
-      menuBtn.classList.toggle("active");
+menuBtn.addEventListener("click",()=> {
+  dropdownMenu.classList.toggle("active");
+  menuBtn.classList.toggle("active");
+});
+
+document.addEventListener("click",e=>{
+  if(!dropdownMenu.contains(e.target)&&!menuBtn.contains(e.target)){
+    dropdownMenu.classList.remove("active");
+    menuBtn.classList.remove("active");
+  }
+});
+
+// Funções para carregar os cards
+function prettifyKey(key){ return key.replace(/-/g,' ').split(' ').map(w=>w?w[0].toUpperCase()+w.slice(1):'').join(' '); }
+function normalizeName(key){ 
+  let name=key.toLowerCase().replace(/\s+/g,'-'); 
+  const keepForms=["lycanroc-dusk","lycanroc-midnight","landorus-therian","thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"];
+  if(keepForms.includes(name)) return name;
+  if(name.includes("-alola")||name.includes("-galar")||name.includes("-hisui")||name.includes("-paldea")) return name;
+  if(name.startsWith("oricorio")) return "oricorio";
+  if(name.startsWith("arceus-")) return "arceus";
+  if(name==="giratina-origin") return "giratina";
+  if(name.endsWith("-mega")) return name.replace("-mega","");
+  const removeSuffixes=["-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base","-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass","-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug","-ground","-poison","-psychic","-steel","-electric","-normal"];
+  for(const suf of removeSuffixes) if(name.endsWith(suf)) return name.replace(suf,"");
+  return name;
+}
+
+document.addEventListener('DOMContentLoaded', async ()=>{
+  const container=document.getElementById('pokemonContainer');
+  const params=new URLSearchParams(window.location.search);
+  const file=params.get('file')||'allowlist_Starters.json';
+  try{
+    const res=await fetch(file);
+    if(!res.ok) throw new Error('Arquivo não encontrado: '+res.statusText);
+    const data=await res.json();
+    const entries=Object.entries(data);
+    if(entries.length===0){ container.innerHTML='<p>Nenhum item encontrado no JSON.</p>'; return; }
+
+    entries.forEach(([key,info])=>{
+      const namePretty=prettifyKey(key);
+      const smogonName=normalizeName(key);
+      const smogonUrl=`https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
+      const localImgPath=`img/${encodeURIComponent(key)}.png`;
+      const fallbackRemote=info && info.sprite?info.sprite:'';
+
+      const card=document.createElement('a');
+      card.className='card';
+      card.href=smogonUrl;
+      card.target="_blank";
+      card.rel="noopener";
+
+      const img=document.createElement('img');
+      img.alt=namePretty;
+      img.loading='lazy';
+      img.src=localImgPath;
+      img.onerror=function(){ this.onerror=null; this.src=fallbackRemote||'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#2E2D2D" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'); };
+
+      const cardText=document.createElement('div');
+      cardText.className='card-text';
+      const h2=document.createElement('h2');
+      h2.textContent=namePretty;
+      cardText.appendChild(h2);
+      card.appendChild(img);
+      card.appendChild(cardText);
+      container.appendChild(card);
     });
-
-    document.addEventListener("click",function(e){
-      if(!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)){
-        dropdownMenu.classList.remove("active");
-        menuBtn.classList.remove("active");
-      }
-    });
-
-    function prettifyKey(key){ return key.replace(/-/g,' ').split(' ').map(w=>w?w[0].toUpperCase()+w.slice(1):'').join(' '); }
-
-    function normalizeName(key){
-      let name=key.toLowerCase().replace(/\s+/g,'-');
-      const keepForms=["lycanroc-dusk","lycanroc-midnight","landorus-therian","thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"];
-      if(keepForms.includes(name)) return name;
-      if(name.includes("-alola")||name.includes("-galar")||name.includes("-hisui")||name.includes("-paldea")) return name;
-      if(name.startsWith("oricorio")) return "oricorio";
-      if(name.startsWith("arceus-")) return "arceus";
-      if(name==="giratina-origin") return "giratina";
-      if(name.endsWith("-mega")) return name.replace("-mega","");
-      const removeSuffixes=["-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base","-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass","-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug","-ground","-poison","-psychic","-steel","-electric","-normal"];
-      for(const suf of removeSuffixes) if(name.endsWith(suf)) return name.replace(suf,"");
-      return name;
-    }
-
-    document.addEventListener('DOMContentLoaded', async ()=>{
-      const container=document.getElementById('pokemonContainer');
-      const params=new URLSearchParams(window.location.search);
-      const file=params.get('file')||'allowlist_Starters.json';
-
-      try{
-        const res=await fetch(file);
-        if(!res.ok) throw new Error('Arquivo não encontrado: '+res.statusText);
-        const data=await res.json();
-        const entries=Object.entries(data);
-        if(entries.length===0){ container.innerHTML='<p>Nenhum item encontrado no JSON.</p>'; return; }
-
-        entries.forEach(([key,info])=>{
-          const namePretty=prettifyKey(key);
-          const smogonName=normalizeName(key);
-          const smogonUrl=`https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
-          const localImgPath=`img/${encodeURIComponent(key)}.png`;
-          const fallbackRemote=info && info.sprite?info.sprite:'';
-
-          const card=document.createElement('a');
-          card.className='card';
-          card.href=smogonUrl;
-          card.target="_blank";
-          card.rel="noopener";
-
-          const img=document.createElement('img');
-          img.alt=namePretty;
-          img.loading='lazy';
-          img.src=localImgPath;
-          img.onerror=function(){ this.onerror=null; this.src=fallbackRemote||'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#2E2D2D" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>'); };
-
-          const cardText=document.createElement('div');
-          cardText.className='card-text';
-          const h2=document.createElement('h2');
-          h2.textContent=namePretty;
-
-          cardText.appendChild(h2);
-          card.appendChild(img);
-          card.appendChild(cardText);
-          container.appendChild(card);
-        });
-      }catch(err){ container.innerHTML=`<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`; console.error(err); }
-    });
-  </script>
+  }catch(err){ container.innerHTML=`<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`; console.error(err); }
+});
+</script>
 </body>
 </html>
