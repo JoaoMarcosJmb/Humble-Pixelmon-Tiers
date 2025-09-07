@@ -20,8 +20,6 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       color: var(--cor-texto);
     }
 
@@ -78,17 +76,17 @@
     nav {
       position: fixed;
       top: 0;
-      right: -260px;
+      right: -260px; /* escondido inicialmente */
       width: 240px;
       height: 100%;
-      background: var(--cor-fundo);
+      background: rgba(28, 27, 27, 0.98);
       box-shadow: -4px 0 10px rgba(0,0,0,0.7);
       padding: 80px 20px;
-      transition: right 0.3s ease;
+      transition: right 0.3s ease-in-out;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      z-index: 999;
+      z-index: 2000;
     }
 
     nav a {
@@ -106,7 +104,7 @@
     }
 
     nav.active {
-      right: 0;
+      right: 0; /* aparece quando ativo */
     }
 
     /* CONTEÚDO */
@@ -177,7 +175,7 @@
     </h1>
 
     <!-- MENU HAMBURGUER -->
-    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
+    <div class="menu-toggle" id="menu-btn">
       <span></span>
       <span></span>
       <span></span>
@@ -185,7 +183,7 @@
   </header>
 
   <!-- MENU LATERAL -->
-  <nav>
+  <nav id="side-menu">
     <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
     <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
     <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
@@ -212,12 +210,17 @@
   </div>
 
   <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const sideMenu = document.getElementById("side-menu");
+
+    menuBtn.addEventListener("click", () => {
+      sideMenu.classList.toggle("active");
+    });
+
     // Fecha o menu se clicar fora
     document.addEventListener("click", function(e) {
-      const nav = document.querySelector("nav");
-      const toggle = document.querySelector(".menu-toggle");
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove("active");
+      if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        sideMenu.classList.remove("active");
       }
     });
   </script>
