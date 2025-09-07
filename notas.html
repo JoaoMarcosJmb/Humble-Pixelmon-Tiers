@@ -16,17 +16,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffffff; /* Texto padrão em branco */
+      color: #ffffff;
     }
 
     /* ---------- Cabeçalho ---------- */
     header {
       width: 100%;
       max-width: 1200px;
-      padding: 20px 30px;
+      padding: 0 30px; /* sem padding-top para alinhar com main */
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start; /* alinhamento pelo topo */
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
       position: relative;
       box-sizing: border-box;
@@ -36,12 +36,16 @@
       font-size: 2.2rem;
       margin: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start; /* alinhamento pelo topo */
       gap: 12px;
-      color: #ffd700; /* Título amarelo */
+      color: #ffd700;
     }
 
-    header h1 a img { height: 50px; }
+    header h1 a img {
+      height: 50px;
+      display: block;
+      margin-top: 0; /* alinhado com o topo do header */
+    }
 
     /* ---------- Menu Hamburguer ---------- */
     .menu-toggle {
@@ -99,25 +103,25 @@
 
     /* ---------- Conteúdo ---------- */
     main {
-  width: 100%;
-  max-width: 1200px; /* mesma largura do header */
-  padding: 0 30px 30px 30px; /* mesma padding horizontal do header */
-  background: rgba(20,20,20,0.6);
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
-  margin-top: 30px; /* só distância do header para main */
-  box-sizing: border-box;
-}
+      width: 100%;
+      max-width: 1200px; /* mesma largura do header */
+      padding: 20px 30px 30px 30px; /* padding interno igual ao header */
+      background: rgba(20,20,20,0.6);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+      margin-top: 30px; /* espaço entre header e main */
+      box-sizing: border-box;
+    }
 
     h2 {
       margin-top: 0;
-      color: #ffd700; /* Título em amarelo */
+      color: #d7d350; /* cor dos títulos de atualização */
     }
 
     ul {
       margin: 10px 0 20px;
       padding-left: 20px;
-      color: #ffffff; /* Texto em branco */
+      color: #ffffff; /* texto em branco */
     }
 
     ul li {
@@ -125,7 +129,7 @@
     }
 
     a {
-      color: #1E90FF; /* Links em azul */
+      color: #1E90FF; /* links em azul */
       font-weight: bold;
       text-decoration: none;
     }
