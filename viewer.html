@@ -1,203 +1,201 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Allowlist Viewer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root {
-      --cor-dourado: #d1a720;
-      --cor-fundo: #1a1a1a;
-      --cor-card: rgba(40, 35, 25, 0.85);
-      --cor-texto: #f5f5f5;
-    }
+<meta charset="UTF-8" />
+<title>Allowlist Viewer</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<style>
+  :root {
+    --cor-dourado: #d1a720;
+    --cor-fundo: #1a1a1a;
+    --cor-card: rgba(40, 35, 25, 0.85);
+    --cor-texto: #f5f5f5;
+  }
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
-                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: var(--cor-texto);
-    }
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
+                url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--cor-texto);
+  }
 
-    /* ---------- Cabeçalho ---------- */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      width: 100%;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(20, 20, 20, 0.9);
-      border-bottom: 2px solid var(--cor-dourado);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-      z-index: 1000;
-      box-sizing: border-box;
-    }
+  /* ---------- Cabeçalho ---------- */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 20, 20, 0.9);
+    border-bottom: 2px solid var(--cor-dourado);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    z-index: 1000;
+    box-sizing: border-box;
+  }
 
-    header h1 {
-      font-size: 1.4rem;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--cor-dourado);
-    }
+  header h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--cor-dourado);
+    font-size: 1.8rem; /* fonte maior */
+  }
 
-    header h1 img { height: 40px; }
+  header h1 img {
+    height: 40px;
+    cursor: pointer;
+  }
 
-    #tierTitleHeader {
-      font-size: 1.2rem;
-      color: var(--cor-dourado);
-      margin-left: 15px;
-    }
+  /* ---------- Menu Hamburguer ---------- */
+  .menu-toggle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 1100;
+  }
 
-    /* ---------- Menu Hamburguer ---------- */
-    .menu-toggle {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 22px;
-      cursor: pointer;
-      z-index: 1100;
-    }
+  .menu-toggle span {
+    display: block;
+    height: 4px;
+    background: var(--cor-texto);
+    border-radius: 4px;
+    transition: 0.3s;
+  }
 
-    .menu-toggle span {
-      display: block;
-      height: 4px;
-      background: var(--cor-texto);
-      border-radius: 4px;
-      transition: 0.3s;
-    }
+  .menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
 
-    .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .menu-toggle.active span:nth-child(2) { opacity: 0; }
-    .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
+  /* ---------- Menu Dropdown ---------- */
+  nav {
+    position: absolute;
+    top: 65px;
+    right: 10px;
+    background: rgba(30, 25, 20, 0.95);
+    border: 1px solid var(--cor-dourado);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    gap: 12px;
+    z-index: 1200;
+    max-width: calc(100% - 20px);
+    overflow-wrap: break-word;
+  }
 
-    nav {
-      position: absolute;
-      top: 65px;
-      right: 10px;
-      background: rgba(30, 25, 20, 0.95);
-      border: 1px solid var(--cor-dourado);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-      display: none;
-      flex-direction: column;
-      padding: 15px;
-      gap: 12px;
-      z-index: 1200;
-      max-width: calc(100% - 20px);
-    }
-    nav.active { display: flex; }
-    nav a {
-      color: var(--cor-dourado);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--cor-texto); }
+  nav.active { display: flex; }
 
-    /* ---------- Conteúdo ---------- */
-    main {
-      margin-top: 100px;
-      width: 90%;
-      max-width: 1200px;
-      text-align: center;
-    }
+  nav a {
+    color: var(--cor-dourado);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
 
-    .subtitulo-tier {
-      font-size: 1.1rem;
-      margin-bottom: 25px;
-      color: var(--cor-texto);
-    }
+  nav a:hover { color: var(--cor-texto); }
 
-    /* ---------- Cards ---------- */
-    .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-      width: 100%;
-      justify-items: center;
-    }
+  /* ---------- Container e Subtítulo ---------- */
+  main {
+    margin-top: 110px;
+    width: 90%;
+    max-width: 1200px;
+  }
 
-    .card {
-      background: var(--cor-card);
-      border-radius: 16px;
-      padding: 20px 15px;
-      text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      text-decoration: none;
-      color: var(--cor-texto);
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      width: 100%;
-      max-width: 260px;
-    }
+  .subtitulo-tier {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: var(--cor-texto);
+    text-align: left;
+  }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(209, 167, 32, 0.3);
-    }
+  /* ---------- Cards ---------- */
+  .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+  }
 
-    .card img {
-      width: 80px;
-      height: auto;
-      border-radius: 8px;
-      background-color: var(--cor-card);
-    }
+  .card {
+    background: var(--cor-card);
+    border-radius: 16px;
+    padding: 20px 15px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    transition: transform 0.25s, box-shadow 0.25s;
+    text-decoration: none;
+    color: var(--cor-texto);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 260px;
+  }
 
-    .card h2 {
-      margin: 0 0 5px 0;
-      font-size: 1.3rem;
-      color: white; /* nomes em branco */
-    }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(209, 167, 32, 0.3);
+  }
 
-    .card p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: var(--cor-texto);
-    }
+  .card img {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+    background-color: var(--cor-card);
+  }
 
-    /* RESPONSIVO */
-    @media (max-width: 1000px){
-      .container { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 700px){
-      .container { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 500px){
-      .container { grid-template-columns: 1fr; }
-    }
-  </style>
+  .card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fff; /* nomes dos pokémons em branco */
+  }
+
+  /* RESPONSIVO */
+  @media (max-width: 1000px){
+    .container { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 700px){
+    .container { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 500px){
+    .container { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 <header>
   <h1>
-    <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html" target="_blank" rel="noopener">
-      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-    </a>
+    <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
     <span id="tierTitleHeader">Carregando...</span>
   </h1>
 
   <div class="menu-toggle" id="menuBtn">
-    <span></span><span></span><span></span>
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
   <nav id="dropdownMenu">
@@ -210,7 +208,7 @@
 </header>
 
 <main>
-  <div class="subtitulo-tier">Pokémons permitidos nessa tier:</div>
+  <p class="subtitulo-tier">Pokémons permitidos nessa tier:</p>
   <div class="container" id="pokemonContainer"></div>
 </main>
 
@@ -223,9 +221,7 @@ menuBtn.addEventListener('click', ()=>{
 });
 
 function prettifyKey(key){
-  return key.replace(/-/g,' ').split(' ')
-    .map(w=>w? w[0].toUpperCase()+w.slice(1):'')
-    .join(' ');
+  return key.replace(/-/g,' ').split(' ').map(w=>w? w[0].toUpperCase()+w.slice(1):'').join(' ');
 }
 
 function normalizeName(key){
