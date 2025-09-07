@@ -5,9 +5,9 @@
   <title>Allowlist Viewer</title>
   <style>
     :root {
-      --cor-fundo: #1c1b1b;
-      --cor-card: #2a2929;
       --cor-dourado: #e6b800;
+      --cor-fundo: #1c1b1b;
+      --cor-card: #2e2d2d;
       --cor-texto: #ffffff;
     }
 
@@ -19,17 +19,19 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      color: var(--cor-texto);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--cor-dourado);
     }
 
-    /* HEADER FIXO */
     header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       width: 100%;
-      padding: 15px 30px;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -40,7 +42,7 @@
     }
 
     header h1 {
-      font-size: 2rem;
+      font-size: 1.6rem;
       margin: 0;
       display: flex;
       align-items: center;
@@ -49,7 +51,7 @@
     }
 
     header h1 img {
-      height: 45px;
+      height: 40px;
       cursor: pointer;
     }
 
@@ -58,37 +60,35 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 35px;
-      height: 26px;
+      width: 30px;
+      height: 22px;
       cursor: pointer;
-      margin-right: 10px;
       z-index: 1100;
     }
 
     .menu-toggle span {
       display: block;
       height: 4px;
-      background: #fff; /* branco pra aparecer */
+      background: #fff;
       border-radius: 4px;
       transition: 0.3s;
     }
 
-    /* Animação do X */
     .menu-toggle.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+      transform: rotate(45deg) translate(5px, 5px);
     }
     .menu-toggle.active span:nth-child(2) {
       opacity: 0;
     }
     .menu-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
     /* MENU DROPDOWN */
     nav {
       position: absolute;
       top: 65px;
-      right: 30px;
+      right: 10px;
       background: rgba(28, 27, 27, 0.98);
       border: 1px solid var(--cor-dourado);
       border-radius: 12px;
@@ -100,60 +100,48 @@
       z-index: 1200;
     }
 
+    nav.active {
+      display: flex;
+    }
+
     nav a {
       color: var(--cor-dourado);
       text-decoration: none;
-      font-size: 1.1rem;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background 0.3s, color 0.3s;
+      font-size: 1rem;
+      transition: color 0.2s;
     }
 
     nav a:hover {
-      background: var(--cor-dourado);
-      color: #000;
+      color: var(--cor-texto);
     }
 
-    nav.active {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    /* CONTEÚDO */
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
       width: 90%;
       max-width: 1000px;
-      margin: 0 auto;
-      padding: 140px 20px 60px;
+      padding: 120px 30px 60px; /* espaço por causa do header fixo */
     }
 
     .card {
       background: var(--cor-card);
-      border: 1px solid rgba(230, 184, 0, 0.4);
       border-radius: 16px;
       padding: 20px 15px;
       text-align: left;
       box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.25s, box-shadow 0.25s, border 0.25s;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
       text-decoration: none;
-      color: var(--cor-texto);
+      color: var(--cor-dourado);
       display: flex;
       align-items: center;
       gap: 15px;
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 8px 20px rgba(230, 184, 0, 0.4);
-      border: 1px solid var(--cor-dourado);
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3);
     }
 
     .card img {
@@ -178,35 +166,33 @@
     .card p {
       margin: 0;
       font-size: 0.95rem;
-      color: #dcdcdc;
+      color: #ffffff;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>
-      <a href="https://www.humblepixelmon.com.br">
-        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-      </a>
+      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       Escolha sua Tier
     </h1>
 
     <!-- MENU HAMBURGUER -->
-    <div class="menu-toggle" id="menu-btn">
+    <div class="menu-toggle" id="menuBtn">
       <span></span>
       <span></span>
       <span></span>
     </div>
-
-    <!-- MENU DROPDOWN -->
-    <nav id="dropdown-menu">
-      <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
-      <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-      <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
-      <a href="notas.html">📝 Notas de Atualização</a>
-      <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
-    </nav>
   </header>
+
+  <!-- MENU DROPDOWN -->
+  <nav id="dropdownMenu">
+    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
+  </nav>
 
   <div class="container">
     <a href="viewer.html?file=allowlist_Monomon.json" class="card">
@@ -227,17 +213,17 @@
   </div>
 
   <script>
-    const menuBtn = document.getElementById("menu-btn");
-    const dropdownMenu = document.getElementById("dropdown-menu");
+    const menuBtn = document.getElementById("menuBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
 
     menuBtn.addEventListener("click", () => {
       dropdownMenu.classList.toggle("active");
-      menuBtn.classList.toggle("active"); // anima o botão
+      menuBtn.classList.toggle("active");
     });
 
-    // Fecha se clicar fora
-    document.addEventListener("click", (e) => {
-      if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    // Fecha o menu se clicar fora
+    document.addEventListener("click", function(e) {
+      if (!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)) {
         dropdownMenu.classList.remove("active");
         menuBtn.classList.remove("active");
       }
