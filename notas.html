@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Allowlist Viewer</title>
+  <title>Notas de Atualização</title>
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -15,7 +15,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffd700; /* todos os textos em amarelo */
+      color: #ffd700;
     }
 
     header {
@@ -34,7 +34,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #ffd700; /* título em amarelo */
+      color: #ffd700;
     }
 
     header h1 img {
@@ -42,102 +42,140 @@
       cursor: pointer;
     }
 
-    .discord-link img {
-      height: 50px;
-      cursor: pointer;
-      transition: transform 0.25s;
-    }
-
-    .discord-link img:hover {
-      transform: scale(1.1);
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-      width: 90%;
-      max-width: 1000px;
-      padding: 30px 30px 60px;
-    }
-
-    .card {
-      background: #2E2D2D;   /* fundo escuro dos cards */
-      border-radius: 16px;
-      padding: 20px 15px;
-      text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-      text-decoration: none;
-      color: #ffd700;  /* textos do card em amarelo */
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 20px rgba(255, 223, 0, 0.3); /* sombra amarela leve */
-    }
-
-    .card img {
-      width: 80px;
-      height: auto;
-      border-radius: 8px;
-      background-color: #2E2D2D;
-    }
-
-    .card-text {
+    .menu-toggle {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
     }
 
-    .card h2 {
-      margin: 0 0 5px 0;
-      font-size: 1.4rem;
-      color: #ffd700; /* título do card em amarelo */
+    .menu-toggle span {
+      display: block;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 4px;
+      transition: 0.3s;
     }
 
-    .card p {
+    nav {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 240px;
+      height: 100%;
+      background: rgba(20, 20, 20, 0.95);
+      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
+      padding: 60px 20px;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #ffd700;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #fff176;
+    }
+
+    nav.active {
+      right: 0;
+    }
+
+    .content {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .note {
+      background: #2E2D2D;
+      border-radius: 16px;
+      padding: 20px 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .note h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.5rem;
+      color: #ffd700;
+    }
+
+    .note ul {
       margin: 0;
-      font-size: 0.95rem;
-      color: #ffd700; /* texto secundário em amarelo */
+      padding-left: 20px;
+    }
+
+    .note li {
+      margin-bottom: 6px;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>
-      <a href="https://www.humblepixelmon.com.br" target="_blank">
+      <a href="index.html">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       </a>
-      Escolha sua Tier
+      Notas de Atualização
     </h1>
 
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link">
-      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord">
-    </a>
+    <!-- MENU HAMBURGUER -->
+    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
-  <div class="container">
-    <a href="viewer.html?file=allowlist_Monomon.json" class="card">
-      <img src="img/Monomon.png" alt="Monomon">
-      <div class="card-text">
-        <h2>Monomon</h2>
-        <p>Restrição a apenas uma Especie por equipe</p>
-      </div>
-    </a>
+  <!-- MENU LATERAL -->
+  <nav>
+    <a href="index.html">🏠 Página Inicial</a>
+    <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
+    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+  </nav>
 
-    <a href="viewer.html?file=allowlist_Starters.json" class="card">
-      <img src="img/Starters.png" alt="Starters">
-      <div class="card-text">
-        <h2>Starters</h2>
-        <p>Somente Pokémon iniciais e suas evoluções</p>
-      </div>
-    </a>
+  <div class="content">
+    <div class="note">
+      <h2>📅 Atualização 05/09/2025</h2>
+      <ul>
+        <li>Adicionada a nova tier <b>Monomon</b>.</li>
+        <li>Correção de sprites que não carregavam corretamente.</li>
+        <li>Ajustes visuais no fundo e nas cores do site.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <h2>📅 Atualização 20/08/2025</h2>
+      <ul>
+        <li>Lançamento inicial do visualizador de tiers.</li>
+        <li>Disponível a tier <b>Starters</b>.</li>
+      </ul>
+    </div>
   </div>
+
+  <script>
+    // Fecha o menu se clicar fora
+    document.addEventListener("click", function(e) {
+      const nav = document.querySelector("nav");
+      const toggle = document.querySelector(".menu-toggle");
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove("active");
+      }
+    });
+  </script>
 </body>
 </html>
-
