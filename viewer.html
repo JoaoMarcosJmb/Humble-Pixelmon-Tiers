@@ -19,7 +19,6 @@
       color: #ffd700;
     }
 
-    /* ---------- Header ---------- */
     header {
       width: 100%;
       max-width: 1200px;
@@ -96,23 +95,6 @@
       color: #fff176;
     }
 
-    /* ---------- Botão Início em destaque ---------- */
-    nav a.inicio {
-      font-size: 1.4rem;
-      font-weight: bold;
-      background: #ffd700;
-      color: #222;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      display: inline-block;
-    }
-
-    nav a.inicio:hover {
-      background: #ffeb3b;
-      color: #000;
-    }
-
     /* ---------- Conteúdo ---------- */
     .subtitle {
       width: 100%;
@@ -159,10 +141,10 @@
       flex: 0 0 84px;
     }
 
-    .card-text h2 { 
-      margin: 0; 
-      font-size: 1.15rem; 
-      text-transform: capitalize; 
+    .card-text h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      text-transform: capitalize;
       color: #ffd700;
     }
   </style>
@@ -181,7 +163,7 @@
     </button>
 
     <nav id="menu">
-      <a href="index.html" class="inicio">🏠 Início</a>
+      <a href="index.html">🏠 Início</a>
       <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
       <a href="index.html">📋 Tiers</a>
       <a href="notas.html">📝 Notas de Atualização</a>
@@ -192,11 +174,13 @@
   <div class="container" id="pokemonContainer"></div>
 
   <script>
-    // Toggle menu
     const menuToggle = document.querySelector(".menu-toggle");
     const menu = document.getElementById("menu");
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("open");
+    });
+    menu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => menu.classList.remove("open"));
     });
 
     function prettifyKey(key) {
@@ -250,7 +234,7 @@
           const smogonName = normalizeName(key);
           const smogonUrl = `https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
 
-          const localImgPath = `img/${encodeURIComponent(key)}.png`; 
+          const localImgPath = `img/${encodeURIComponent(key)}.png`;
           const fallbackRemote = info && info.sprite ? info.sprite : '';
 
           const card = document.createElement('a');
