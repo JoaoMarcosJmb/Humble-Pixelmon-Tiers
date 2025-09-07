@@ -28,23 +28,29 @@ body {
 
 /* ---------- HEADER ---------- */
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 1200px;
-  padding: 20px 30px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  position: relative;
-  box-sizing: border-box;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
   background: rgba(20,20,20,0.95);
   border-bottom: 2px solid var(--cor-dourado);
   z-index: 1000;
+  box-sizing: border-box;
+  gap: 15px;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 header h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin: 0;
   display: flex;
   align-items: center;
@@ -52,9 +58,8 @@ header h1 {
   color: var(--cor-dourado);
 }
 
-header h1 a img { height: 50px; }
+header h1 img { height: 50px; }
 
-/* ---------- SUBTITLE ---------- */
 .subtitle {
   font-size: 1.2rem;
   color: var(--cor-texto);
@@ -71,7 +76,7 @@ header h1 a img { height: 50px; }
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 1100;
 }
 
 .menu-toggle span {
@@ -119,7 +124,7 @@ nav a:hover { color: #fff176; }
   gap: 20px;
   width: 90%;
   max-width: 1200px;
-  padding: 30px;
+  padding: 140px 30px 60px; /* espaço extra no topo para header */
   box-sizing: border-box;
   justify-items: center;
 }
@@ -169,16 +174,20 @@ nav a:hover { color: #fff176; }
 </head>
 <body>
 <header>
-  <h1>
-    <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html" target="_blank" rel="noopener">
-      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-    </a>
-    Carregando...
-  </h1>
-  <div class="subtitle" id="subtitle">Carregando Pokémon...</div>
+  <div class="header-left">
+    <h1>
+      <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html" target="_blank" rel="noopener">
+        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      </a>
+      Carregando...
+    </h1>
+    <div class="subtitle" id="subtitle">Carregando Pokémon...</div>
+  </div>
+
   <button class="menu-toggle" aria-label="Abrir menu">
     <span></span><span></span><span></span>
   </button>
+
   <nav id="menu">
     <a href="index.html">🏠 Início</a>
     <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
