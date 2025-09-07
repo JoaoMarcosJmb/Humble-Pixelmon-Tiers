@@ -16,7 +16,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffd700; /* texto padrão amarelo */
+      color: #ffd700;
     }
 
     header {
@@ -35,17 +35,56 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #ffd700; /* título do header em amarelo */
+      color: #ffd700;
     }
 
     header h1 a img { height: 50px; }
+
+    /* ===== MENU HAMBURGUER ===== */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      display: block;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 240px;
+      height: 100%;
+      background: rgba(20,20,20,0.95);
+      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
+      padding: 60px 20px;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    nav a {
+      color: #ffd700;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #fff176; }
+    nav.active { right: 0; }
 
     .subtitle {
       width: 100%;
       max-width: 1200px;
       padding: 0 30px 20px 30px;
       font-size: 1.2rem;
-      color: #ffd700; /* subtitle em amarelo */
+      color: #ffd700;
       text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
@@ -60,14 +99,14 @@
     }
 
     .card {
-      background: #2E2D2D;          
+      background: #2E2D2D;
       border-radius: 12px;
       padding: 14px;
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #ffd700; /* textos dentro do card em amarelo */
+      color: #ffd700;
       box-shadow: 0 6px 14px rgba(0,0,0,0.5);
       transition: transform .2s, box-shadow .2s;
     }
@@ -81,7 +120,7 @@
       height: 84px;
       object-fit: contain;
       border-radius: 8px;
-      background-color: #2E2D2D; /* fundo igual ao card */
+      background-color: #2E2D2D;
       flex: 0 0 84px;
     }
 
@@ -89,7 +128,7 @@
       margin: 0; 
       font-size: 1.15rem; 
       text-transform: capitalize; 
-      color: #ffd700; /* título do card em amarelo */
+      color: #ffd700;
     }
   </style>
 </head>
@@ -102,10 +141,23 @@
       Carregando...
     </h1>
 
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank" class="discord-link" rel="noopener">
-      <img src="https://i.imgur.com/SimtTBt.png" alt="Discord" style="height:50px;">
-    </a>
+    <!-- MENU HAMBURGUER -->
+    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
+
+  <!-- MENU LATERAL -->
+  <nav>
+    <a href="index.html">🏠 Página Inicial</a>
+    <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
+    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+    <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
+  </nav>
 
   <div class="subtitle" id="subtitle"></div>
   <div class="container" id="pokemonContainer"></div>
@@ -119,46 +171,19 @@
         .join(' ');
     }
 
-    // Função que normaliza o nome para o link do Smogon
     function normalizeName(key) {
       let name = key.toLowerCase().replace(/\s+/g, '-');
-
-      // Formas que o Smogon TEM páginas próprias e devem ser mantidas
       const keepForms = [
         "lycanroc-dusk", "lycanroc-midnight",
         "landorus-therian", "thundurus-therian", "tornadus-therian",
         "urshifu-rapid-strike", "urshifu-single-strike"
       ];
-      if (keepForms.includes(name)) {
-        return name;
-      }
-
-      // Formas regionais -> mantém (ex: ninetales-alola)
-      if (name.includes("-alola") || name.includes("-galar") || name.includes("-hisui") || name.includes("-paldea")) {
-        return name;
-      }
-
-      // Oricorio -> sempre cai em oricorio (independente da dança)
-      if (name.startsWith("oricorio")) {
-        return "oricorio";
-      }
-
-      // Arceus -> todas as variantes viram arceus
-      if (name.startsWith("arceus-")) {
-        return "arceus";
-      }
-
-      // Giratina-Origin -> vira giratina
-      if (name === "giratina-origin") {
-        return "giratina";
-      }
-
-      // Megas -> removemos o sufixo
-      if (name.endsWith("-mega")) {
-        return name.replace("-mega", "");
-      }
-
-      // Outras formas descartáveis
+      if (keepForms.includes(name)) return name;
+      if (name.includes("-alola") || name.includes("-galar") || name.includes("-hisui") || name.includes("-paldea")) return name;
+      if (name.startsWith("oricorio")) return "oricorio";
+      if (name.startsWith("arceus-")) return "arceus";
+      if (name === "giratina-origin") return "giratina";
+      if (name.endsWith("-mega")) return name.replace("-mega", "");
       const removeSuffixes = [
         "-origin", "-therian", "-resolute", "-pirouette", "-eternal",
         "-blade", "-base", "-average", "-school", "-dusk", "-dawn", "-midday",
@@ -167,11 +192,8 @@
         "-psychic", "-steel", "-electric", "-normal"
       ];
       for (const suf of removeSuffixes) {
-        if (name.endsWith(suf)) {
-          return name.replace(suf, "");
-        }
+        if (name.endsWith(suf)) return name.replace(suf, "");
       }
-
       return name;
     }
 
@@ -189,6 +211,7 @@
         .replace('allowlist_','')
         .replace(/_/g,' ');
       header.innerHTML = `${logoHTML} ${tierName}`;
+
       subtitle.textContent = `Pokémons permitidos nessa tier:`;
 
       try {
@@ -241,6 +264,15 @@
       } catch (err) {
         container.innerHTML = `<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`;
         console.error(err);
+      }
+    });
+
+    // Fecha o menu se clicar fora
+    document.addEventListener("click", function(e) {
+      const nav = document.querySelector("nav");
+      const toggle = document.querySelector(".menu-toggle");
+      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove("active");
       }
     });
   </script>
