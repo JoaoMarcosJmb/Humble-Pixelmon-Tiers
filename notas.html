@@ -29,7 +29,7 @@
     }
 
     header h1 {
-      font-size: 2.6rem;
+      font-size: 2.2rem;
       margin: 0;
       display: flex;
       align-items: center;
@@ -38,8 +38,26 @@
     }
 
     header h1 img {
-      height: 50px;
+      height: 40px;
       cursor: pointer;
+    }
+
+    /* Botão Início */
+    .home-btn {
+      background: #2E2D2D;
+      border: 2px solid #ffd700;
+      border-radius: 8px;
+      padding: 8px 14px;
+      text-decoration: none;
+      color: #ffd700;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .home-btn:hover {
+      background: #ffd700;
+      color: #2E2D2D;
     }
 
     .menu-toggle {
@@ -125,11 +143,12 @@
 <body>
   <header>
     <h1>
-      <a href="index.html">
-        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-      </a>
+      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       Notas de Atualização
     </h1>
+
+    <!-- Botão Início -->
+    <a href="index.html" class="home-btn">⬅ Início</a>
 
     <!-- MENU HAMBURGUER -->
     <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
