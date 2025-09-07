@@ -16,18 +16,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffd700;
+      color: #ffffff; /* Texto padrão do conteúdo em branco */
     }
 
+    /* ---------- Cabeçalho ---------- */
     header {
       width: 100%;
       max-width: 1200px;
-      padding: 20px 30px 10px 30px;
+      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
       position: relative;
+      box-sizing: border-box;
     }
 
     header h1 {
@@ -36,7 +38,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #ffd700;
+      color: #ffd700; /* Mantém o título amarelo */
     }
 
     header h1 a img { height: 50px; }
@@ -58,7 +60,7 @@
       display: block;
       width: 100%;
       height: 4px;
-      background: #ffd700;
+      background: #ffd700; /* Barrinhas do menu amarelas */
       border-radius: 2px;
       transition: 0.3s;
     }
@@ -85,7 +87,7 @@
     }
 
     nav a {
-      color: #ffd700;
+      color: #ffd700; /* Links do menu amarelos */
       text-decoration: none;
       font-size: 1.2rem;
       transition: 0.2s;
@@ -101,7 +103,7 @@
       max-width: 1200px;
       padding: 0 30px 20px 30px;
       font-size: 1.2rem;
-      color: #ffd700;
+      color: #ffffff; /* Subtítulo em branco */
       text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
@@ -123,7 +125,7 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      color: #ffd700;
+      color: #ffffff; /* Texto do card em branco */
       box-shadow: 0 6px 14px rgba(0,0,0,0.5);
       transition: transform .2s, box-shadow .2s;
     }
@@ -145,7 +147,7 @@
       margin: 0;
       font-size: 1.15rem;
       text-transform: capitalize;
-      color: #ffd700;
+      color: #ffffff; /* Nome do Pokémon em branco */
     }
   </style>
 </head>
@@ -182,7 +184,6 @@
       menu.classList.toggle("open");
     });
 
-    // Fecha o menu ao clicar em qualquer link
     menu.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => menu.classList.remove("open"));
     });
@@ -277,4 +278,3 @@
   </script>
 </body>
 </html>
-
