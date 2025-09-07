@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     :root {
-      --cor-dourado: #c9a32c; /* dourado suave */
+      --cor-dourado: #c9a32c;
       --cor-texto: #f5f5f5;
-      --cor-fundo: rgba(25,25,25,0.9);
+      --cor-fundo: rgba(25,25,25,0.95);
       --cor-menu: rgba(30,30,30,0.95);
     }
 
@@ -22,28 +22,33 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       color: var(--cor-texto);
     }
 
-    /* ---------- Cabeçalho ---------- */
+    /* ---------- Cabeçalho Full Width ---------- */
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 1200px;
-      padding: 15px 30px;
+      background: var(--cor-fundo);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.7);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(20,20,20,0.85);
-      border-bottom: 2px solid var(--cor-dourado);
-      border-radius: 0 0 12px 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.7);
-      position: relative;
-      z-index: 1000;
     }
 
-    header h1 {
-      font-size: 2rem;
+    .header-top h1 {
+      font-size: 1.8rem;
       margin: 0;
       display: flex;
       align-items: center;
@@ -52,12 +57,11 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.6);
     }
 
-    header h1 a img {
-      height: 50px;
+    .header-top h1 a img {
+      height: 40px;
       border-radius: 8px;
     }
 
-    /* ---------- Menu Hamburguer ---------- */
     .menu-toggle {
       display: flex;
       flex-direction: column;
@@ -89,7 +93,6 @@
       transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* ---------- Menu Lateral ---------- */
     nav {
       position: fixed;
       top: 0;
@@ -108,9 +111,7 @@
       border-radius: 0 0 0 12px;
     }
 
-    nav.open {
-      right: 0;
-    }
+    nav.open { right: 0; }
 
     nav a {
       color: var(--cor-dourado);
@@ -119,18 +120,14 @@
       transition: color 0.2s;
     }
 
-    nav a:hover {
-      color: #ffd766;
-    }
+    nav a:hover { color: #ffd766; }
 
-    /* ---------- Subtitulo ---------- */
+    /* ---------- Subtítulo na barra ---------- */
     .subtitle {
-      width: 100%;
-      max-width: 1200px;
-      padding: 20px 30px 10px;
-      font-size: 1.25rem;
+      font-size: 1rem;
       color: var(--cor-texto);
       text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+      padding-left: 12px;
       box-sizing: border-box;
     }
 
@@ -141,7 +138,7 @@
       gap: 20px;
       width: 90%;
       max-width: 1200px;
-      padding: 30px;
+      padding: 150px 30px 30px; /* espaço por causa do header fixo */
       box-sizing: border-box;
     }
 
@@ -157,6 +154,7 @@
       box-shadow: 0 6px 14px rgba(0,0,0,0.5);
       transition: transform .2s, box-shadow .2s;
     }
+
     .card:hover {
       transform: translateY(-6px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.7);
@@ -181,16 +179,18 @@
 </head>
 <body>
   <header>
-    <h1>
-      <a href="index.html" target="_blank" rel="noopener">
-        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
-      </a>
-      Carregando...
-    </h1>
-
-    <button class="menu-toggle" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-top">
+      <h1>
+        <a href="index.html" target="_blank" rel="noopener">
+          <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+        </a>
+        Carregando...
+      </h1>
+      <button class="menu-toggle" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="subtitle" id="subtitle">Carregando...</div>
 
     <nav id="menu">
       <a href="index.html">🏠 Início</a>
@@ -201,7 +201,6 @@
     </nav>
   </header>
 
-  <div class="subtitle" id="subtitle"></div>
   <div class="container" id="pokemonContainer"></div>
 
   <script>
@@ -241,15 +240,15 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('pokemonContainer');
-      const header = document.querySelector('header h1');
+      const headerTitle = document.querySelector('header h1');
       const subtitle = document.getElementById('subtitle');
 
       const params = new URLSearchParams(window.location.search);
       const file = params.get('file') || 'allowlist_Starters.json';
 
-      const logoHTML = header.querySelector('a').outerHTML;
+      const logoHTML = headerTitle.querySelector('a').outerHTML;
       const tierName = file.replace('.json','').replace('allowlist_','').replace(/_/g,' ');
-      header.innerHTML = `${logoHTML} ${tierName}`;
+      headerTitle.innerHTML = `${logoHTML} ${tierName}`;
       subtitle.textContent = `Pokémons permitidos nessa tier:`;
 
       try {
