@@ -8,7 +8,6 @@
       --cor-fundo: #1c1b1b;
       --cor-card: #2a2929;
       --cor-dourado: #e6b800;
-      --cor-dourado-claro: #ffdf4d;
       --cor-texto: #ffffff;
     }
 
@@ -59,17 +58,30 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      width: 32px;
-      height: 24px;
+      width: 35px;
+      height: 26px;
       cursor: pointer;
+      margin-right: 10px;
+      z-index: 1100;
     }
 
     .menu-toggle span {
       display: block;
       height: 4px;
-      background: var(--cor-dourado);
+      background: #fff; /* branco pra aparecer */
       border-radius: 4px;
       transition: 0.3s;
+    }
+
+    /* Animação do X */
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     /* MENU DROPDOWN */
@@ -220,12 +232,14 @@
 
     menuBtn.addEventListener("click", () => {
       dropdownMenu.classList.toggle("active");
+      menuBtn.classList.toggle("active"); // anima o botão
     });
 
     // Fecha se clicar fora
     document.addEventListener("click", (e) => {
       if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
         dropdownMenu.classList.remove("active");
+        menuBtn.classList.remove("active");
       }
     });
   </script>
