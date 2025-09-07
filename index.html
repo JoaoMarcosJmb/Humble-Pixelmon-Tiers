@@ -62,6 +62,7 @@
       width: 30px;
       height: 22px;
       cursor: pointer;
+      z-index: 1100;
     }
 
     .menu-toggle span {
@@ -72,29 +73,28 @@
       transition: 0.3s;
     }
 
-    /* MENU LATERAL */
+    /* MENU DROPDOWN */
     nav {
-      position: fixed;
-      top: 0;
-      right: -260px; /* escondido inicialmente */
-      width: 240px;
-      height: 100%;
+      position: absolute;
+      top: 70px;
+      right: 40px;
       background: rgba(28, 27, 27, 0.98);
-      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
-      padding: 80px 20px;
-      transition: right 0.3s ease-in-out;
-      display: flex;
+      border: 1px solid var(--cor-dourado);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      display: none;
       flex-direction: column;
-      gap: 20px;
-      z-index: 2000;
+      padding: 15px;
+      gap: 12px;
+      z-index: 1200;
     }
 
     nav a {
       color: var(--cor-dourado);
       text-decoration: none;
       font-size: 1.1rem;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -104,7 +104,13 @@
     }
 
     nav.active {
-      right: 0; /* aparece quando ativo */
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
     /* CONTEÚDO */
@@ -115,7 +121,7 @@
       width: 90%;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 140px 20px 60px; /* espaço pro header fixo */
+      padding: 140px 20px 60px;
     }
 
     .card {
@@ -180,16 +186,16 @@
       <span></span>
       <span></span>
     </div>
-  </header>
 
-  <!-- MENU LATERAL -->
-  <nav id="side-menu">
-    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
-    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
-    <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
-  </nav>
+    <!-- MENU DROPDOWN -->
+    <nav id="dropdown-menu">
+      <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+      <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+      <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+      <a href="notas.html">📝 Notas de Atualização</a>
+      <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
+    </nav>
+  </header>
 
   <div class="container">
     <a href="viewer.html?file=allowlist_Monomon.json" class="card">
@@ -211,16 +217,16 @@
 
   <script>
     const menuBtn = document.getElementById("menu-btn");
-    const sideMenu = document.getElementById("side-menu");
+    const dropdownMenu = document.getElementById("dropdown-menu");
 
     menuBtn.addEventListener("click", () => {
-      sideMenu.classList.toggle("active");
+      dropdownMenu.classList.toggle("active");
     });
 
-    // Fecha o menu se clicar fora
-    document.addEventListener("click", function(e) {
-      if (!sideMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-        sideMenu.classList.remove("active");
+    // Fecha se clicar fora
+    document.addEventListener("click", (e) => {
+      if (!menuBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove("active");
       }
     });
   </script>
