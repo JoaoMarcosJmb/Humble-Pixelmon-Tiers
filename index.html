@@ -15,17 +15,24 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffd700;
+      color: #e6b800; /* amarelo mais escuro */
     }
 
     header {
+      position: fixed;   /* fixo no topo */
+      top: 0;
+      left: 0;
+      right: 0;
       width: 100%;
       max-width: 1000px;
+      margin: 0 auto;
       padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: rgba(20, 20, 20, 0.9); /* fundo para não sumir no scroll */
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      z-index: 1000;
     }
 
     header h1 {
@@ -34,7 +41,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #ffd700;
+      color: #e6b800;
     }
 
     header h1 img {
@@ -54,7 +61,7 @@
     .menu-toggle span {
       display: block;
       height: 4px;
-      background: #ffd700;
+      background: #e6b800;
       border-radius: 4px;
       transition: 0.3s;
     }
@@ -72,10 +79,11 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      z-index: 999;
     }
 
     nav a {
-      color: #ffd700;
+      color: #e6b800;
       text-decoration: none;
       font-size: 1.1rem;
       transition: color 0.2s;
@@ -95,7 +103,7 @@
       gap: 25px;
       width: 90%;
       max-width: 1000px;
-      padding: 30px 30px 60px;
+      padding: 120px 30px 60px; /* espaço para não ficar atrás do header fixo */
     }
 
     .card {
@@ -107,7 +115,7 @@
       transition: transform 0.25s, box-shadow 0.25s;
       cursor: pointer;
       text-decoration: none;
-      color: #ffd700;
+      color: #e6b800;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -134,7 +142,7 @@
     .card h2 {
       margin: 0 0 5px 0;
       font-size: 1.4rem;
-      color: #ffd700;
+      color: #e6b800;
     }
 
     .card p {
@@ -147,7 +155,7 @@
 <body>
   <header>
     <h1>
-      <a href="https://www.humblepixelmon.com.br" target="_blank">
+      <a href="https://www.humblepixelmon.com.br">
         <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
       </a>
       Escolha sua Tier
@@ -163,11 +171,11 @@
 
   <!-- MENU LATERAL -->
   <nav>
-    <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
+    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
     <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
     <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
     <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
+    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
   </nav>
 
   <div class="container">
