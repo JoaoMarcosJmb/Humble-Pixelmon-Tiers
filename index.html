@@ -39,6 +39,7 @@
       border-bottom: 2px solid var(--cor-dourado);
       box-shadow: 0 2px 8px rgba(0,0,0,0.6);
       z-index: 1000;
+      box-sizing: border-box;
     }
 
     header h1 {
@@ -57,6 +58,7 @@
 
     /* MENU HAMBURGUER */
     .menu-toggle {
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -98,6 +100,8 @@
       padding: 15px;
       gap: 12px;
       z-index: 1200;
+      max-width: calc(100% - 20px); /* garante que não saia da tela */
+      overflow-wrap: break-word;
     }
 
     nav.active {
@@ -121,7 +125,7 @@
       gap: 25px;
       width: 90%;
       max-width: 1000px;
-      padding: 120px 30px 60px; /* espaço por causa do header fixo */
+      padding: 120px 30px 60px;
     }
 
     .card {
@@ -167,6 +171,23 @@
       margin: 0;
       font-size: 0.95rem;
       color: #ffffff;
+    }
+
+    /* RESPONSIVO PARA CELULAR */
+    @media (max-width: 500px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      .container {
+        padding: 100px 15px 50px;
+        gap: 15px;
+      }
+
+      nav {
+        right: 5px;
+        left: 5px;
+      }
     }
   </style>
 </head>
@@ -221,7 +242,6 @@
       menuBtn.classList.toggle("active");
     });
 
-    // Fecha o menu se clicar fora
     document.addEventListener("click", function(e) {
       if (!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)) {
         dropdownMenu.classList.remove("active");
