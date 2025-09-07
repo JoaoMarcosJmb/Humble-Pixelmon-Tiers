@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Notas de Atualização</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -18,14 +19,16 @@
       color: #ffd700;
     }
 
+    /* ---------- Header ---------- */
     header {
       width: 100%;
-      max-width: 1000px;
-      padding: 20px 30px;
+      max-width: 1200px;
+      padding: 20px 30px 10px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      position: relative;
     }
 
     header h1 {
@@ -37,43 +40,27 @@
       color: #ffd700;
     }
 
-    header h1 img {
-      height: 40px;
-      cursor: pointer;
-    }
+    header h1 a img { height: 50px; }
 
-    /* Botão Início */
-    .home-btn {
-      background: #2E2D2D;
-      border: 2px solid #ffd700;
-      border-radius: 8px;
-      padding: 8px 14px;
-      text-decoration: none;
-      color: #ffd700;
-      font-size: 1rem;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .home-btn:hover {
-      background: #ffd700;
-      color: #2E2D2D;
-    }
-
+    /* ---------- Menu Hamburguer ---------- */
     .menu-toggle {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 22px;
+      justify-content: space-around;
+      width: 32px;
+      height: 26px;
+      background: transparent;
+      border: none;
       cursor: pointer;
+      z-index: 1001;
     }
 
     .menu-toggle span {
       display: block;
+      width: 100%;
       height: 4px;
       background: #ffd700;
-      border-radius: 4px;
+      border-radius: 2px;
       transition: 0.3s;
     }
 
@@ -84,109 +71,115 @@
       width: 240px;
       height: 100%;
       background: rgba(20, 20, 20, 0.95);
-      box-shadow: -4px 0 10px rgba(0,0,0,0.7);
-      padding: 60px 20px;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.7);
+      padding-top: 80px;
       transition: right 0.3s ease;
+      z-index: 1000;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+      padding-left: 20px;
+    }
+
+    nav.open {
+      right: 0;
     }
 
     nav a {
       color: #ffd700;
       text-decoration: none;
-      font-size: 1.1rem;
-      transition: color 0.2s;
+      font-size: 1.2rem;
+      transition: 0.2s;
     }
 
     nav a:hover {
       color: #fff176;
     }
 
-    nav.active {
-      right: 0;
+    /* ---------- Botão Início em destaque ---------- */
+    nav a.inicio {
+      font-size: 1.4rem;
+      font-weight: bold;
+      background: #ffd700;
+      color: #222;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: inline-block;
     }
 
-    .content {
+    nav a.inicio:hover {
+      background: #ffeb3b;
+      color: #000;
+    }
+
+    /* ---------- Conteúdo ---------- */
+    main {
       width: 90%;
-      max-width: 800px;
-      margin: 30px 0 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
+      max-width: 1000px;
+      padding: 30px;
+      background: rgba(20,20,20,0.6);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+      margin: 30px 0;
     }
 
-    .note {
-      background: #2E2D2D;
-      border-radius: 16px;
-      padding: 20px 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    }
-
-    .note h2 {
-      margin: 0 0 10px 0;
-      font-size: 1.5rem;
+    h2 {
+      margin-top: 0;
       color: #ffd700;
     }
 
-    .note ul {
-      margin: 0;
+    ul {
+      margin: 10px 0 20px;
       padding-left: 20px;
     }
 
-    .note li {
-      margin-bottom: 6px;
-      font-size: 1rem;
+    ul li {
+      margin-bottom: 8px;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>
-      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      <a href="https://www.humblepixelmon.com.br" target="_blank" rel="noopener">
+        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      </a>
       Notas de Atualização
     </h1>
 
-    <!-- Botão Início -->
-    <a href="index.html" class="home-btn">⬅ Início</a>
+    <button class="menu-toggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
 
-    <!-- MENU HAMBURGUER -->
-    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('active')">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <nav id="menu">
+      <a href="index.html" class="inicio">🏠 Início</a>
+      <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
+      <a href="index.html">📋 Tiers</a>
+      <a href="notas.html">📝 Notas de Atualização</a>
+    </nav>
   </header>
 
-  <!-- MENU LATERAL -->
-  <nav>
-    <a href="index.html">🏠 Página Inicial</a>
-    <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
-    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
-    <a href="notas.html">📝 Notas de Atualização</a>
-  </nav>
-
-<div class="content">
-  <div class="note">
-    <h2>📅 Atualização 13/08/2025</h2>
+  <main>
+    <h2>Atualização 1.2 - 07/09/2025</h2>
     <ul>
-      <li>Adicionada a nova tier <b>Monomon</b>.</li>
-      <li>Torneios de tiers customizadas agora com recompensas em dobro.</li>
-      <li>Use <b>/validar Monomon</b> ou confira a <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/viewer.html?file=allowlist_Monomon.json">allowlist</a> para checar seu time.</li>
+      <li>Correção de sprites ausentes em algumas tiers.</li>
+      <li>Adição da nova tier <strong>Monomon</strong>.</li>
+      <li>Aprimoramento do menu de navegação.</li>
     </ul>
-  </div>
-</div>
 
+    <h2>Atualização 1.1 - 01/09/2025</h2>
+    <ul>
+      <li>Dark mode adicionado.</li>
+      <li>Melhorias na responsividade em dispositivos móveis.</li>
+    </ul>
+  </main>
 
   <script>
-    // Fecha o menu se clicar fora
-    document.addEventListener("click", function(e) {
-      const nav = document.querySelector("nav");
-      const toggle = document.querySelector(".menu-toggle");
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) {
-        nav.classList.remove("active");
-      }
+    const menuToggle = document.querySelector(".menu-toggle");
+    const menu = document.getElementById("menu");
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("open");
     });
   </script>
 </body>
