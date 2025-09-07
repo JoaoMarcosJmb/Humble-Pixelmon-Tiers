@@ -19,7 +19,6 @@
       color: #ffd700;
     }
 
-    /* ---------- Header ---------- */
     header {
       width: 100%;
       max-width: 1200px;
@@ -140,24 +139,30 @@
       <a href="https://www.humblepixelmon.com.br" target="_blank">🌐 Site Oficial</a>
       <a href="index.html">📋 Tiers</a>
       <a href="notas.html">📝 Notas de Atualização</a>
+      <a href="https://discord.gg/whV6hbVRvk" target="_blank">💬 Discord</a>
     </nav>
   </header>
 
   <main>
-    <h2>Atualização 1.1 - 13/08/2025</h2>
+     <h2>Atualização 1.1 - 13/08/2025</h2>
 <ul>
   <li>Adição da nova tier <strong>Monomon</strong>.</li>
   <li>Torneios de tiers customizadas agora com recompensas em dobro.</li>
-  <li>Use <strong>/validar Monomon</strong> ou confira a <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/viewer.html?file=allowlist_Monomon.json">allowlist</a> para checar seu time.</li>
+  <li>Use <strong>/validar Monomon</strong> ou confira <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/viewer.html?file=allowlist_Monomon.json" style="font-weight:bold; color:#FFC700; text-decoration:none;">Monomon</a> para checar seu time.</li>
 </ul>
-
   </main>
 
   <script>
     const menuToggle = document.querySelector(".menu-toggle");
     const menu = document.getElementById("menu");
+
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("open");
+    });
+
+    // Fecha o menu ao clicar em qualquer link
+    menu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => menu.classList.remove("open"));
     });
   </script>
 </body>
