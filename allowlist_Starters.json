@@ -35,6 +35,18 @@
     "id": 9,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png"
   },
+  "pikachu": {
+    "id": 25,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
+  },
+  "raichu": {
+    "id": 26,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png"
+  },
+  "eevee": {
+    "id": 133,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png"
+  },
   "chikorita": {
     "id": 152,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/152.png"
@@ -59,6 +71,10 @@
     "id": 157,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/157.png"
   },
+  "typhlosion-hisui": {
+    "id": 157,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10233.png"
+  },
   "totodile": {
     "id": 158,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/158.png"
@@ -70,6 +86,10 @@
   "feraligatr": {
     "id": 160,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/160.png"
+  },
+  "pichu": {
+    "id": 172,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/172.png"
   },
   "treecko": {
     "id": 252,
@@ -90,6 +110,10 @@
   "combusken": {
     "id": 256,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/256.png"
+  },
+  "blaziken": {
+    "id": 257,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/257.png"
   },
   "mudkip": {
     "id": 258,
@@ -147,6 +171,10 @@
     "id": 496,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/496.png"
   },
+  "serperior": {
+    "id": 497,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/497.png"
+  },
   "tepig": {
     "id": 498,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/498.png"
@@ -170,6 +198,10 @@
   "samurott": {
     "id": 503,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/503.png"
+  },
+  "samurott-hisui": {
+    "id": 503,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10236.png"
   },
   "chespin": {
     "id": 650,
@@ -203,6 +235,10 @@
     "id": 657,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/657.png"
   },
+  "greninja": {
+    "id": 658,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png"
+  },
   "rowlet": {
     "id": 722,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/722.png"
@@ -215,9 +251,17 @@
     "id": 724,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/724.png"
   },
+  "decidueye-hisui": {
+    "id": 724,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10244.png"
+  },
   "litten": {
     "id": 725,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/725.png"
+  },
+  "torracat": {
+    "id": 726,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/726.png"
   },
   "incineroar": {
     "id": 727,
@@ -255,6 +299,10 @@
     "id": 814,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/814.png"
   },
+  "cinderace": {
+    "id": 815,
+    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/815.png"
+  },
   "sobble": {
     "id": 816,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/816.png"
@@ -266,21 +314,5 @@
   "inteleon": {
     "id": 818,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/818.png"
-  },
-  "pichu": {
-    "id": 172,
-    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/172.png"
-  },
-  "pikachu": {
-    "id": 25,
-    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png"
-  },
-  "raichu": {
-    "id": 26,
-    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png"
-  },
-  "eevee": {
-    "id": 133,
-    "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png"
   }
 }
