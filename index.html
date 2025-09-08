@@ -125,9 +125,10 @@
       color: var(--cor-texto);
     }
 
+    /* CONTAINER DOS BOTÕES */
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, 1fr); /* sempre 2 por linha */
       gap: 25px;
       width: 90%;
       max-width: 1000px;
@@ -180,16 +181,13 @@
     }
 
     /* RESPONSIVO PARA CELULAR */
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
+      .container {
+        grid-template-columns: 1fr; /* no celular fica 1 por linha */
+      }
       header h1 {
         font-size: 1.3rem;
       }
-
-      .container {
-        padding: 100px 15px 50px;
-        gap: 15px;
-      }
-
       nav {
         right: 5px;
         left: 5px;
@@ -237,6 +235,15 @@
         <p>Somente Pokémon iniciais e suas evoluções</p>
       </div>
     </a>
+
+    <!-- NOVO BOTÃO -->
+    <a href="Tier_Nova.html" class="card">
+      <img src="img/TierNova.png" alt="???">
+      <div class="card-text">
+        <h2>???</h2>
+        <p>Nova Tier especial em desenvolvimento</p>
+      </div>
+    </a>
   </div>
 
   <script>
@@ -257,6 +264,3 @@
   </script>
 </body>
 </html>
-
-
-
