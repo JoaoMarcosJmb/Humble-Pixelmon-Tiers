@@ -64,9 +64,72 @@
       cursor: pointer;
     }
 
+    /* ---------- Menu Hamburguer ---------- */
+    .menu-toggle {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 4px;
+      background: var(--cor-texto);
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ---------- Menu Dropdown ---------- */
+    nav {
+      position: absolute;
+      top: 65px;
+      right: 10px;
+      background: rgba(30, 25, 20, 0.95);
+      border: 1px solid var(--cor-dourado);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      display: none;
+      flex-direction: column;
+      padding: 15px;
+      gap: 12px;
+      z-index: 1200;
+      max-width: calc(100% - 20px);
+      overflow-wrap: break-word;
+    }
+
+    nav.active {
+      display: flex;
+    }
+
+    nav a {
+      color: var(--cor-dourado);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--cor-texto);
+    }
+
     /* ---------- Conteúdo ---------- */
     main {
-      margin-top: 100px;
+      margin-top: 120px;
     }
 
     main h2 {
@@ -79,6 +142,18 @@
       font-size: 1.5rem;
       color: var(--cor-texto);
     }
+
+    /* Responsivo */
+    @media (max-width: 500px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      nav {
+        right: 5px;
+        left: 5px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -89,11 +164,44 @@
       </a>
       Em Breve
     </h1>
+
+    <!-- Botão Menu -->
+    <div class="menu-toggle" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
+
+  <!-- Menu Dropdown -->
+  <nav id="dropdownMenu">
+    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
+    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
+  </nav>
 
   <main>
     <h2>🚧 Em breve 🚧</h2>
     <p>01/10/2025</p>
   </main>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("active");
+      dropdownMenu.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menuBtn.classList.remove("active");
+        dropdownMenu.classList.remove("active");
+      }
+    });
+  </script>
 </body>
 </html>
