@@ -110,6 +110,7 @@
       z-index: 1200;
       max-width: calc(100% - 20px);
       overflow-wrap: break-word;
+      text-align: left; /* ✅ alinhamento à esquerda */
     }
 
     nav.active {
@@ -121,6 +122,8 @@
       text-decoration: none;
       font-size: 1rem;
       transition: color 0.2s;
+      display: block;   /* ✅ cada link ocupa a linha inteira */
+      text-align: left; /* ✅ reforço de alinhamento */
     }
 
     nav a:hover {
@@ -175,11 +178,11 @@
 
   <!-- Menu Dropdown -->
   <nav id="dropdownMenu">
+    <a href="index.html">🏠 Início</a>
     <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
     <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
     <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
     <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
   </nav>
 
   <main>
