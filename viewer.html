@@ -5,7 +5,7 @@
 <title>Carregando...</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<!-- Favicon -->
+<!-- FAVICON -->
 <link rel="icon" type="image/png" href="img/mike_anotando2.png">
 <link rel="shortcut icon" type="image/png" href="img/mike_anotando2.png">
 <link rel="apple-touch-icon" href="img/mike_anotando2.png">
@@ -32,7 +32,6 @@
     color: var(--cor-texto);
   }
 
-  /* ---------- Cabeçalho ---------- */
   header {
     position: fixed;
     top: 0;
@@ -59,17 +58,9 @@
     font-size: 1.8rem;
   }
 
-  header h1 img {
-    height: 40px;
-    cursor: pointer;
-  }
+  header h1 img { height: 40px; cursor: pointer; }
+  header h1 a { display: flex; align-items: center; }
 
-  header h1 a {
-    display: flex;
-    align-items: center;
-  }
-
-  /* ---------- Menu Hamburguer ---------- */
   .menu-toggle {
     position: relative;
     display: flex;
@@ -89,17 +80,10 @@
     transition: 0.3s;
   }
 
-  .menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-  /* ---------- Menu Dropdown ---------- */
   nav {
     position: absolute;
     top: 65px;
@@ -128,7 +112,6 @@
 
   nav a:hover { color: var(--cor-texto); }
 
-  /* ---------- Container e Subtítulo ---------- */
   main {
     margin-top: 110px;
     width: 90%;
@@ -142,7 +125,6 @@
     text-align: left;
   }
 
-  /* ---------- Cards ---------- */
   .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -178,46 +160,55 @@
     background-color: var(--cor-card);
   }
 
-  .card h2 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #fff;
+  .card h2 { margin: 0; font-size: 1.2rem; color: #fff; }
+
+  .creator-container {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    text-align: center;
+    color: var(--cor-dourado);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 
-  /* RESPONSIVO */
-  @media (max-width: 1000px){
-    .container { grid-template-columns: repeat(3, 1fr); }
+  .creator-container h2 { margin: 0; font-size: 1.3rem; font-weight: bold; color: var(--cor-dourado); }
+  .creator-container img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 8px;
+    box-shadow: none;
   }
-  @media (max-width: 700px){
-    .container { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 500px){
-    .container { grid-template-columns: 1fr; }
-  }
+
+  @media (max-width: 1000px) { .container { grid-template-columns: repeat(3, 1fr); } .creator-container { display: none; } }
+  @media (max-width: 700px) { .container { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .container { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <header>
   <h1>
-    <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html">
+    <a href="index.html">
       <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
     </a>
     <span id="tierTitleHeader">Carregando...</span>
   </h1>
 
   <div class="menu-toggle" id="menuBtn">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
 
   <nav id="dropdownMenu">
-    <a href="https://joaomarcosjmb.github.io/Humble-Pixelmon-Tiers/index.html">🏠 Início</a>
+    <a href="index.html">🏠 Início</a>
     <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
-    <a href="viewer.html?file=allowlist_Monomon.json">⚔️ Monomon</a>
-    <a href="viewer.html?file=allowlist_Starters.json">🔥 Starters</a>
+    <a href="Tiers_1.12.html">🗡️ Tiers 1.12</a>
+    <a href="Tiers_1.16.html">🛡️ Tiers 1.16</a>
     <a href="notas.html">📝 Notas de Atualização</a>
-    <a href="https://discord.gg/whV6hbVRvk">💬 Discord</a>
   </nav>
 </header>
 
@@ -225,6 +216,9 @@
   <p class="subtitulo-tier">Pokémons permitidos nessa tier:</p>
   <div class="container" id="pokemonContainer"></div>
 </main>
+
+<!-- Criador da tier -->
+<div class="creator-container" id="creatorBox"></div>
 
 <script>
 const menuBtn = document.getElementById('menuBtn');
@@ -240,28 +234,91 @@ function prettifyKey(key){
 
 function normalizeName(key){
   let name = key.toLowerCase().replace(/\s+/g,'-');
-  const keepForms=["lycanroc-dusk","lycanroc-midnight","landorus-therian","thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"];
+
+  const keepForms=[
+    "lycanroc-dusk","lycanroc-midnight",
+    "landorus-therian","thundurus-therian","tornadus-therian",
+    "urshifu-rapid-strike","urshifu-single-strike"
+  ];
+
   if(keepForms.includes(name)) return name;
+
+  // mantém mega evoluções
+  if(name.endsWith("-mega") || name.endsWith("-mega-x") || name.endsWith("-mega-y")) return name;
+
   if(name.includes("-alola")||name.includes("-galar")||name.includes("-hisui")||name.includes("-paldea")) return name;
   if(name.startsWith("oricorio")) return "oricorio";
   if(name.startsWith("arceus-")) return "arceus";
   if(name==="giratina-origin") return "giratina";
-  if(name.endsWith("-mega")) return name.replace("-mega","");
-  const removeSuffixes=["-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base","-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass","-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug","-ground","-poison","-psychic","-steel","-electric","-normal"];
-  for(const suf of removeSuffixes) if(name.endsWith(suf)) return name.replace(suf,"");
+
+  const removeSuffixes=[
+    "-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base",
+    "-average","-school","-dusk","-dawn","-midday",
+    "-ice","-fire","-water","-grass","-rock","-fighting",
+    "-flying","-ghost","-dark","-fairy","-dragon","-bug",
+    "-ground","-poison","-psychic","-steel","-electric","-normal"
+  ];
+  for(const suf of removeSuffixes)
+    if(name.endsWith(suf)) return name.replace(suf,"");
+
   return name;
 }
 
-document.addEventListener('DOMContentLoaded', async ()=>{
+document.addEventListener('DOMContentLoaded', async ()=> {
   const container = document.getElementById('pokemonContainer');
   const tierTitleHeader = document.getElementById('tierTitleHeader');
+  const creatorBox = document.getElementById('creatorBox');
+
   const params = new URLSearchParams(window.location.search);
   const file = params.get('file') || 'allowlist_Starters.json';
-  const tierName = file.replace('.json','').replace('allowlist_','').replace(/_/g,' ');
 
-  // Atualiza título no header e na aba
-  tierTitleHeader.textContent = tierName;
-  document.title = tierName;
+  let version = file.includes('/') ? file.split('/')[0] : 'SemVersao';
+  version = version.replace(/^tiers_/, '');
+
+  let tierName = file.replace(/^.*\//,'')
+                     .replace('.json','')
+                     .replace('allowlist_','')
+                     .replace(/_/g,' ');
+
+  const fullTitle = `${tierName} (${version})`;
+  tierTitleHeader.textContent = fullTitle;
+  document.title = fullTitle;
+
+  const creators = {
+    "Starters": "Jacksonflz",
+    "Monomon": "DD4rk",
+    "Only Smeargle": "FrysendeStorm"
+  };
+
+  if (creators[tierName]) {
+    const nick = creators[tierName];
+    const remoteImg = `https://raw.githubusercontent.com/joaomarcosjmb/Humble-Pixelmon-Tiers/main/img/Criadores/${nick}.png`;
+    const localImg = `img/Criadores/${nick}.png`;
+    const placeholderData = 'data:image/svg+xml;utf8,'+encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">'+
+      '<rect fill="#2E2D2D" width="100%" height="100%"/>'+
+      '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#d1a720" font-size="20">Criador</text>'+
+      '</svg>'
+    );
+
+    creatorBox.innerHTML = `
+      <h2>👑 Criador da Tier:</h2>
+      <h2>${nick}</h2>
+      <img id="creatorImg" src="${remoteImg}" alt="${nick}">
+    `;
+
+    const creatorImg = document.getElementById('creatorImg');
+    let triedLocal = false;
+    creatorImg.onerror = function(){
+      if(!triedLocal){
+        triedLocal = true;
+        this.src = localImg;
+      } else {
+        this.onerror = null;
+        this.src = placeholderData;
+      }
+    };
+  }
 
   try{
     const res = await fetch(file);
@@ -270,12 +327,22 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const entries = Object.entries(data);
     if(entries.length===0){ container.innerHTML='<p>Nenhum item encontrado no JSON.</p>'; return; }
 
-    entries.forEach(([key,info])=>{
+    entries.forEach(([key, info])=>{
       const namePretty = prettifyKey(key);
       const smogonName = normalizeName(key);
       const smogonUrl = `https://www.smogon.com/dex/ss/pokemon/${smogonName}`;
-      const localImgPath = `img/${encodeURIComponent(key)}.png`;
-      const fallbackRemote = info && info.sprite ? info.sprite : '';
+
+      const id = (typeof info === "number") ? info : (info && typeof info.id === "number" ? info.id : null);
+      const spriteFromJson = info && info.sprite ? info.sprite : null;
+
+      let spriteUrl = null;
+      if(id){
+        spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+      } else if(spriteFromJson){
+        spriteUrl = spriteFromJson;
+      } else {
+        spriteUrl = `https://img.pokemondb.net/artwork/large/${encodeURIComponent(normalizeName(key))}.jpg`;
+      }
 
       const card = document.createElement('a');
       card.className='card';
@@ -286,10 +353,15 @@ document.addEventListener('DOMContentLoaded', async ()=>{
       const img = document.createElement('img');
       img.alt=namePretty;
       img.loading='lazy';
-      img.src=localImgPath;
+      img.src=spriteUrl;
       img.onerror=function(){
         this.onerror=null;
-        this.src=fallbackRemote || 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#2E2D2D" width="100%" height="100%"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text></svg>');
+        this.src='data:image/svg+xml;utf8,'+encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">'+
+          '<rect fill="#2E2D2D" width="100%" height="100%"/>'+
+          '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="14">no image</text>'+
+          '</svg>'
+        );
       };
 
       const h2 = document.createElement('h2');
@@ -308,5 +380,3 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 </script>
 </body>
 </html>
-
-
