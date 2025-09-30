@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tiers 1.16 - Humble</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/mike_anotando2.png">
+  <link rel="shortcut icon" type="image/png" href="img/mike_anotando2.png">
+  <link rel="apple-touch-icon" href="img/mike_anotando2.png">
+  
+  <style>
+    :root {
+      --cor-dourado: #d1a720;
+      --cor-fundo: #1a1a1a; 
+      --cor-texto: #f5f5f5;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
+                  url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      color: var(--cor-texto);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    /* ---------- Cabeçalho ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(20, 20, 20, 0.9);
+      border-bottom: 2px solid var(--cor-dourado);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--cor-dourado);
+    }
+
+    header h1 img {
+      height: 40px;
+      cursor: pointer;
+    }
+
+    /* MENU HAMBURGUER */
+    .menu-toggle {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 4px;
+      background: var(--cor-texto);
+      border-radius: 4px;
+      transition: 0.3s;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* MENU DROPDOWN */
+    nav {
+      position: absolute;
+      top: 65px;
+      right: 10px;
+      background: rgba(30, 25, 20, 0.95);
+      border: 1px solid var(--cor-dourado);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      display: none;
+      flex-direction: column;
+      padding: 15px;
+      gap: 12px;
+      z-index: 1200;
+      max-width: calc(100% - 20px);
+      overflow-wrap: break-word;
+      text-align: left; /* ✅ alinhamento à esquerda */
+    }
+
+    nav.active {
+      display: flex;
+    }
+
+    nav a {
+      color: var(--cor-dourado);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+      display: block;   /* ✅ cada link ocupa a linha inteira */
+      text-align: left; /* ✅ reforço de alinhamento */
+    }
+
+    nav a:hover {
+      color: var(--cor-texto);
+    }
+
+    /* ---------- Conteúdo ---------- */
+    main {
+      margin-top: 120px;
+    }
+
+    main h2 {
+      font-size: 2.5rem;
+      color: var(--cor-dourado);
+      margin-bottom: 10px;
+    }
+
+    main p {
+      font-size: 1.5rem;
+      color: var(--cor-texto);
+    }
+
+    /* Responsivo */
+    @media (max-width: 500px) {
+      header h1 {
+        font-size: 1.3rem;
+      }
+
+      nav {
+        right: 5px;
+        left: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <a href="index.html">
+        <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+      </a>
+      Tiers 1.16
+    </h1>
+
+    <!-- Botão Menu -->
+    <div class="menu-toggle" id="menuBtn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Menu Dropdown -->
+  <nav id="dropdownMenu">
+    <a href="index.html">🏠 Início</a>
+    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+    <a href="Tiers_1.12.html">🗡️ Tiers 1.12</a>
+    <a href="Tiers_1.16.html">🛡️ Tiers 1.16</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+  </nav>
+
+  <main>
+    <h2>🚧 Em breve 🚧</h2>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("active");
+      dropdownMenu.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!dropdownMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menuBtn.classList.remove("active");
+        dropdownMenu.classList.remove("active");
+      }
+    });
+  </script>
+</body>
+</html>
