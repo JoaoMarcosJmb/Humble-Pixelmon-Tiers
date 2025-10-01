@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -118,11 +119,32 @@
     max-width: 1200px;
   }
 
+  /* Linha título + barra de busca */
+  .title-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
   .subtitulo-tier {
     font-size: 1.1rem;
-    margin-bottom: 25px;
     color: var(--cor-texto);
-    text-align: left;
+    margin: 0;
+  }
+
+  /* Campo de busca */
+  #searchPokemon {
+    width: 100%;
+    max-width: 260px; /* 🔹 igual ao card */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-dourado);
+    font-size: 1rem;
+    background: var(--cor-card);
+    color: var(--cor-texto);
   }
 
   .container {
@@ -213,7 +235,12 @@
 </header>
 
 <main>
-  <p class="subtitulo-tier">Pokémons permitidos nessa tier:</p>
+  <!-- 🔹 Linha com título + pesquisa -->
+  <div class="title-search">
+    <p class="subtitulo-tier">Pokémons permitidos nessa tier:</p>
+    <input type="text" id="searchPokemon" placeholder="Pesquisar por nome ou ID...">
+  </div>
+
   <div class="container" id="pokemonContainer"></div>
 </main>
 
@@ -243,9 +270,7 @@ function normalizeName(key){
 
   if(keepForms.includes(name)) return name;
 
-  // mantém mega evoluções
   if(name.endsWith("-mega") || name.endsWith("-mega-x") || name.endsWith("-mega-y")) return name;
-
   if(name.includes("-alola")||name.includes("-galar")||name.includes("-hisui")||name.includes("-paldea")) return name;
   if(name.startsWith("oricorio")) return "oricorio";
   if(name.startsWith("arceus-")) return "arceus";
@@ -365,11 +390,27 @@ document.addEventListener('DOMContentLoaded', async ()=> {
       };
 
       const h2 = document.createElement('h2');
-      h2.textContent=namePretty;
+      h2.textContent=namePretty; // 🔹 ID não aparece mais
 
       card.appendChild(img);
       card.appendChild(h2);
       container.appendChild(card);
+    });
+
+    // 🔍 Filtro de pesquisa por nome OU ID
+    const searchInput = document.getElementById('searchPokemon');
+    searchInput.addEventListener('input', function() {
+      const term = this.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('#pokemonContainer .card');
+      
+      cards.forEach(card => {
+        const text = card.querySelector('h2').textContent.toLowerCase();
+        if (text.includes(term)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
     });
 
   }catch(err){
