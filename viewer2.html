@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Carregando...</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="img/mike_anotando2.png">
+<link rel="shortcut icon" type="image/png" href="img/mike_anotando2.png">
+<link rel="apple-touch-icon" href="img/mike_anotando2.png">
+
+  
+<style>
+  :root {
+    --cor-dourado: #d1a720;
+    --cor-fundo: #1a1a1a;
+    --cor-card: rgba(40, 35, 25, 0.85);
+    --cor-texto: #f5f5f5;
+  }
+
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(20,20,20,0.85), rgba(40,30,20,0.85)),
+                url("https://i.imgur.com/vATNRmF.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--cor-texto);
+  }
+
+  /* HEADER */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(20, 20, 20, 0.9);
+    border-bottom: 2px solid var(--cor-dourado);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+
+  header h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--cor-dourado);
+    font-size: 1.8rem;
+  }
+
+  header h1 img { height: 40px; cursor: pointer; }
+  header h1 a { display: flex; align-items: center; }
+
+  /* MENU */
+  .menu-toggle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 4px;
+    background: var(--cor-texto);
+    border-radius: 4px;
+    transition: 0.3s;
+  }
+
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  nav {
+    position: absolute;
+    top: 65px;
+    right: 10px;
+    background: rgba(30, 25, 20, 0.95);
+    border: 1px solid var(--cor-dourado);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    gap: 12px;
+    z-index: 1200;
+    max-width: calc(100% - 20px);
+    overflow-wrap: break-word;
+  }
+
+  nav.active { display: flex; }
+
+  nav a {
+    color: var(--cor-dourado);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s;
+  }
+
+  nav a:hover { color: var(--cor-texto); }
+
+  /* MAIN */
+  main {
+    margin-top: 110px;
+    width: 90%;
+    max-width: 1200px;
+  }
+
+  .title-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .subtitulo-tier {
+    font-size: 1.1rem;
+    color: var(--cor-texto);
+    margin: 0;
+  }
+
+  /* CAMPO DE PESQUISA */
+  #searchPokemon {
+    width: 100%;
+    max-width: 260px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--cor-dourado);
+    font-size: 1rem;
+    background: var(--cor-card);
+    color: var(--cor-texto);
+  }
+
+  /* CONTAINER PRINCIPAL - LISTA DE TIERS (vertical) */
+  #pokemonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: stretch;
+    padding-bottom: 40px;
+  }
+
+/* SEÇÃO DE CADA TIER */
+.tier-section {
+  width: 100%;
+  display: block;
+  margin-bottom: 25px;
+}
+
+/* BARRA DE TÍTULO (AGORA LARGA E SUAVE) */
+.tier-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f5f5f5;
+  background: linear-gradient(90deg, rgba(209,167,32,0.25), rgba(209,167,32,0.05));
+  padding: 10px 18px;
+  border-radius: 10px;
+  display: block;             /* 🔹 ocupa toda a largura */
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(209, 167, 32, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 6px rgba(0,0,0,0.3);
+  text-shadow: 0 0 2px rgba(0,0,0,0.6);
+  letter-spacing: 0.3px;
+  transition: background 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.tier-title:hover {
+  background: linear-gradient(90deg, rgba(209,167,32,0.35), rgba(209,167,32,0.1));
+  border-color: rgba(209, 167, 32, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 0 8px rgba(209, 167, 32, 0.25);
+}
+
+  /* LISTA DE CARDS DENTRO DA TIER */
+ /* GRADE RESPONSIVA: 4 colunas fixas dentro do container principal */
+.tier-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: left; /* 🔹 centraliza quando tiver menos de 4 */
+  width: 100%;
+  box-sizing: border-box;
+}
+/* CARD: largura calculada para 4 colunas dentro do container (leva em conta 3 gaps de 16px) */
+.card {
+  background: var(--cor-card);
+  border-radius: 16px;
+  padding: 20px 15px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  transition: transform 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+  color: var(--cor-texto);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  /* chave: largura fixa relativa ao container para garantir 4 por linha */
+  flex: 0 0 calc((100% - 48px) / 4); /* 48px = 3 * gap(16px) */
+  max-width: calc((100% - 48px) / 4);
+  box-sizing: border-box;
+}
+
+/* Ajustes para telas menores (3 / 2 / 1 colunas) */
+@media (max-width: 1000px) {
+  .card {
+    flex: 0 0 calc((100% - 32px) / 3); /* 3 colunas (2 gaps) */
+    max-width: calc((100% - 32px) / 3);
+  }
+}
+
+@media (max-width: 700px) {
+  .card {
+    flex: 0 0 calc((100% - 16px) / 2); /* 2 colunas (1 gap) */
+    max-width: calc((100% - 16px) / 2);
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(209, 167, 32, 0.35);
+  }
+
+  .card img {
+    width: 70px;
+    height: auto;
+    border-radius: 8px;
+    background-color: var(--cor-card);
+  }
+
+  .card h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #fff;
+  }
+
+  /* EFEITO HYPE 🔥 */
+  /* 🔥 CARD HYPE — mesmo tamanho do normal */
+.card.hype {
+  position: relative;
+  border: 2px solid rgba(209, 167, 32, 0.6);
+  box-shadow: 0 0 12px rgba(209, 167, 32, 0.25);
+  animation: none; /* remove o pulso que “aumentava” o tamanho */
+  overflow: hidden;
+  padding: 18px 13px; /* 🔹 reduz 2px da borda pra igualar o normal */
+  box-sizing: border-box;
+}
+
+.card.hype::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffd84d, #d1a720);
+  box-shadow: 0 0 6px rgba(209, 167, 32, 0.4);
+  border-radius: 16px 0 0 16px;
+}
+
+.hype-badge {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-shadow: 0 0 4px rgba(255, 200, 0, 0.8);
+  animation: none;
+}
+
+  @keyframes hypeGlow {
+    0%,100% { box-shadow: 0 0 10px rgba(209, 167, 32, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(209, 167, 32, 0.8); }
+  }
+
+  @keyframes flameFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  /* BOX DO CRIADOR */
+  .creator-container {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    text-align: center;
+    color: var(--cor-dourado);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .creator-container h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--cor-dourado);
+  }
+
+  .creator-container img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 1000px) {
+    .creator-container { display: none; }
+  }
+
+  @media (max-width: 700px) {
+    .card { min-width: 180px; max-width: 220px; }
+  }
+
+  @media (max-width: 500px) {
+    .card { width: 100%; max-width: none; }
+  }
+</style>
+
+</head>
+<body>
+<header>
+  <h1>
+    <a href="index.html">
+      <img src="https://i.imgur.com/XOEcuO8.png" alt="Mascote">
+    </a>
+    <span id="tierTitleHeader">Carregando...</span>
+  </h1>
+
+  <div class="menu-toggle" id="menuBtn">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav id="dropdownMenu">
+    <a href="index.html">🏠 Início</a>
+    <a href="https://www.humblepixelmon.com.br">🌐 Site Oficial</a>
+    <a href="Tiers_1.12.html">🗡️ Tiers 1.12</a>
+    <a href="Tiers_1.16.html">🛡️ Tiers 1.16</a>
+    <a href="notas.html">📝 Notas de Atualização</a>
+  </nav>
+</header>
+
+<main>
+  <!-- 🔹 Linha com título + pesquisa -->
+  <div class="title-search">
+    <p class="subtitulo-tier">Pokémons permitidos nessa tier:</p>
+    <input type="text" id="searchPokemon" placeholder="Pesquisar por nome ou ID...">
+  </div>
+
+  <div class="container" id="pokemonContainer"></div>
+</main>
+
+<!-- Criador da tier -->
+<div class="creator-container" id="creatorBox"></div>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const dropdownMenu = document.getElementById('dropdownMenu');
+menuBtn.addEventListener('click', ()=>{
+  menuBtn.classList.toggle('active');
+  dropdownMenu.classList.toggle('active');
+});
+
+function prettifyKey(key){
+  return key.replace(/-/g,' ').split(' ').map(w=>w? w[0].toUpperCase()+w.slice(1):'').join(' ');
+}
+
+function normalizeName(key){
+  let name = key.toLowerCase().replace(/\s+/g,'-');
+  const keepForms=[
+    "lycanroc-dusk","lycanroc-midnight","landorus-therian",
+    "thundurus-therian","tornadus-therian","urshifu-rapid-strike","urshifu-single-strike"
+  ];
+  if(keepForms.includes(name)) return name;
+  if(name.endsWith("-mega")||name.endsWith("-mega-x")||name.endsWith("-mega-y")) return name;
+  if(name.includes("-alola")||name.includes("-galar")||name.includes("-hisui")||name.includes("-paldea")) return name;
+  if(name.startsWith("oricorio")) return "oricorio";
+  if(name.startsWith("arceus-")) return "arceus";
+  if(name==="giratina-origin") return "giratina";
+
+  const removeSuffixes=[
+    "-origin","-therian","-resolute","-pirouette","-eternal","-blade","-base",
+    "-average","-school","-dusk","-dawn","-midday","-ice","-fire","-water","-grass",
+    "-rock","-fighting","-flying","-ghost","-dark","-fairy","-dragon","-bug",
+    "-ground","-poison","-psychic","-steel","-electric","-normal"
+  ];
+  for(const suf of removeSuffixes)
+    if(name.endsWith(suf)) return name.replace(suf,"");
+  return name;
+}
+
+document.addEventListener('DOMContentLoaded', async ()=> {
+  const container = document.getElementById('pokemonContainer');
+  const tierTitleHeader = document.getElementById('tierTitleHeader');
+  const creatorBox = document.getElementById('creatorBox');
+
+  const params = new URLSearchParams(window.location.search);
+  const file = params.get('file') || 'allowlist_Starters.json';
+
+  let version = file.includes('/') ? file.split('/')[0] : 'SemVersao';
+  version = version.replace(/^tiers_/, '');
+
+  let tierName = file.replace(/^.*\//,'')
+                     .replace('.json','')
+                     .replace('allowlist_','')
+                     .replace(/_/g,' ');
+
+  const fullTitle = `${tierName} (${version})`;
+  tierTitleHeader.textContent = fullTitle;
+  document.title = fullTitle;
+
+  const creators = {
+    "Starters": "Jacksonflz",
+    "Monomon": "DD4rk",
+    "Only Smeargle": "FrysendeStorm"
+  };
+
+  if (creators[tierName]) {
+    const nick = creators[tierName];
+    const remoteImg = `https://raw.githubusercontent.com/joaomarcosjmb/Humble-Pixelmon-Tiers/main/img/Criadores/${nick}.png`;
+    const localImg = `img/Criadores/${nick}.png`;
+    const placeholderData = 'data:image/svg+xml;utf8,'+encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240">'+
+      '<rect fill="#2E2D2D" width="100%" height="100%"/>'+
+      '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#d1a720" font-size="20">Criador</text>'+
+      '</svg>'
+    );
+
+    creatorBox.innerHTML = `
+      <h2>👑 Criador da Tier:</h2>
+      <h2>${nick}</h2>
+      <img id="creatorImg" src="${remoteImg}" alt="${nick}">
+    `;
+
+    const creatorImg = document.getElementById('creatorImg');
+    let triedLocal = false;
+    creatorImg.onerror = function(){
+      if(!triedLocal){
+        triedLocal = true;
+        this.src = localImg;
+      } else {
+        this.onerror = null;
+        this.src = placeholderData;
+      }
+    };
+  }
+
+  try{
+    const res = await fetch(file);
+    if(!res.ok) throw new Error('Arquivo não encontrado: '+res.statusText);
+    const data = await res.json();
+
+    const entries = Object.entries(data);
+    if(entries.length===0){ 
+      container.innerHTML='<p>Nenhum Pokémon encontrado no JSON.</p>'; 
+      return; 
+    }
+
+    const tierOrder = ["AG","Uber","OU","UU","RU","NU","PU","ZU","NFE","LC"];
+    const grouped = {};
+    for(const tier of tierOrder) grouped[tier] = [];
+    for(const [key, info] of entries){
+      const t = info.tier || "SemTier";
+      if(!grouped[t]) grouped[t] = [];
+      grouped[t].push([key, info]);
+    }
+
+    const gen = version.includes("1.16") ? "sv" : "ss";
+    container.innerHTML = "";
+
+    for(const tier of tierOrder){
+      const list = grouped[tier];
+      if(!list || list.length === 0) continue;
+
+      // 🔥 Coloca os hype no topo antes de renderizar
+      list.sort((a, b) => {
+        const hypeA = a[1].hype ? 1 : 0;
+        const hypeB = b[1].hype ? 1 : 0;
+        return hypeB - hypeA;
+      });
+
+      const section = document.createElement('section');
+      section.className = 'tier-section';
+
+      const title = document.createElement('h2');
+      title.className = 'tier-title';
+      title.textContent = `${tier} (${list.length})`;
+      section.appendChild(title);
+
+      const grid = document.createElement('div');
+      grid.className = 'tier-grid';
+
+      list.forEach(([key, info])=>{
+        const namePretty = prettifyKey(key);
+        const smogonName = normalizeName(key);
+        const smogonUrl = `https://www.smogon.com/dex/${gen}/pokemon/${smogonName}`;
+        const id = info?.id || null;
+        const spriteUrl = id 
+          ? `img/official-artwork/${id}.png`
+          : `https://img.pokemondb.net/artwork/large/${encodeURIComponent(smogonName)}.jpg`;
+
+        const card = document.createElement('a');
+        card.className = 'card';
+        card.href = smogonUrl;
+        card.target = "_blank";
+        card.rel = "noopener";
+
+        const img = document.createElement('img');
+        img.alt = namePretty;
+        img.loading = 'lazy';
+        img.onerror = () => {
+          img.onerror = null;
+          img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        };
+        enqueueLoad(img, spriteUrl);
+
+        const h2 = document.createElement('h2');
+        h2.textContent = namePretty;
+
+        card.appendChild(img);
+        card.appendChild(h2);
+
+        if (info.hype) {
+          card.classList.add('hype');
+          const badge = document.createElement('div');
+          badge.className = 'hype-badge';
+          badge.innerHTML = '🔥';
+          card.appendChild(badge);
+        }
+
+        grid.appendChild(card);
+      });
+
+      section.appendChild(grid);
+      container.appendChild(section);
+    }
+
+    const searchInput = document.getElementById('searchPokemon');
+    searchInput.addEventListener('input', function() {
+      const term = this.value.toLowerCase().trim();
+      document.querySelectorAll('#pokemonContainer .tier-section').forEach(section=>{
+        let visibleCount = 0;
+        section.querySelectorAll('.card').forEach(card=>{
+          const text = card.querySelector('h2').textContent.toLowerCase();
+          const match = text.includes(term);
+          card.style.display = match ? "flex" : "none";
+          if(match) visibleCount++;
+        });
+        section.style.display = visibleCount > 0 ? "block" : "none";
+      });
+    });
+
+  }catch(err){
+    container.innerHTML=`<p><strong>Erro:</strong> não foi possível carregar <code>${file}</code>. ${err.message}</p>`;
+    console.error(err);
+  }
+});
+
+let _nowLoading = 0;
+const MAX_CONCURRENCY = 10;
+const _queue = [];
+
+function _kickQueue() {
+  while (_nowLoading < MAX_CONCURRENCY && _queue.length) {
+    const job = _queue.shift();
+    job();
+  }
+}
+
+function enqueueLoad(img, url) {
+  _queue.push(() => {
+    _nowLoading++;
+    const cleanup = () => { _nowLoading--; _kickQueue(); };
+
+    let tries = 0;
+    const maxTries = 4;
+    const base = 500; 
+
+    const tryOnce = () => {
+      img.src = url;
+    };
+
+    const onLoad = () => {
+      img.removeEventListener('load', onLoad);
+      img.removeEventListener('error', onError);
+      cleanup();
+    };
+
+    const onError = () => {
+      tries++;
+      if (tries >= maxTries) {
+        img.removeEventListener('load', onLoad);
+        img.removeEventListener('error', onError);
+        cleanup();
+        return;
+      }
+      const wait = Math.pow(2, tries - 1) * base + Math.random() * 200;
+      setTimeout(() => {
+        img.removeAttribute('src');
+        tryOnce();
+      }, wait);
+    };
+
+    img.addEventListener('load', onLoad, { once: false });
+    img.addEventListener('error', onError, { once: false });
+    tryOnce();
+  });
+
+  _kickQueue();
+}
+</script>
+
+</body>
+</html>
